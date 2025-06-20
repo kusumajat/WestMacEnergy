@@ -207,9 +207,6 @@ figure {
             color: #FFC300; }
 
 #colorlib-main {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
   width: 80%;
   float: right;
   -webkit-transition: 0.5s;
@@ -222,8 +219,14 @@ figure {
     #colorlib-main {
       width: 100%; } }
 
+
+      #colorlib-map {
+         height: 100vh; /* vh = viewport height */
+    display: flex;
+    flex-direction: column; /* Pastikan tinggi penuh */
+      }
 #map {
-    flex-grow: 1;
+    flex-grow: 1; /* Ini lebih baik dari height: 100% dalam konteks flexbox */
     width: 100%;
 }
 

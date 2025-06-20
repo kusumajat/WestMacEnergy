@@ -1,6 +1,24 @@
-@extends('layouts/template')
+<!doctype html>
+<html lang="en">
 
-@section('styles')
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'My App')</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/flexslider.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
@@ -12,149 +30,165 @@
             height: calc(100vh - 56px);
         }
     </style>
-@endsection
+    <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
+</head>
 
-@section('content')
-    <div id="map"></div>
 
-    <!-- Modal Point-->
-    <div class="modal fade" id="CreatePointModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create Point</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<body>
+    <div id="colorlib-page">
+        <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+        @include('components.navbar')
+
+        <div id="colorlib-map">
+            <div id="map"></div>
+
+            <!-- Modal Point-->
+            <div class="modal fade" id="CreatePointModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Point</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <form method="POST" action="{{ route('points.store') }}" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                @csrf
+
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="example point">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="geom_point" class="form-label">Geometry</label>
+                                    <textarea class="form-control" id="geom_point" name="geom_point" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Photo</label>
+                                    <input type="file" class="form-control" id="image_point" name="image"
+                                        onchange="document.getElementById('preview-image-point').src = window.URL.createObjectURL(this.files[0])">
+                                </div>
+                                <img src="" alt="" id="preview-image-point" class="img-thumbnail"
+                                    width="400">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <form method="POST" action="{{ route('points.store') }}" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                placeholder="example point">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="geom_point" class="form-label">Geometry</label>
-                            <textarea class="form-control" id="geom_point" name="geom_point" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Photo</label>
-                            <input type="file" class="form-control" id="image_point" name="image"
-                                onchange="document.getElementById('preview-image-point').src = window.URL.createObjectURL(this.files[0])">
-                        </div>
-                        <img src="" alt="" id="preview-image-point" class="img-thumbnail" width="400">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
             </div>
+
+            <!-- Modal Polyline-->
+            <div class="modal fade" id="CreatePolylineModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Polyline</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <form method="POST" action="{{ route('polylines.store') }}" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                @csrf
+
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="example polylines">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="geom_polyline" class="form-label">Geometry</label>
+                                    <textarea class="form-control" id="geom_polyline" name="geom_polyline" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Photo</label>
+                                    <input type="file" class="form-control" id="image_polyline" name="image"
+                                        onchange="document.getElementById('preview-image-polyline').src = window.URL.createObjectURL(this.files[0])">
+                                </div>
+                                <img src="" alt="" id="preview-image-polyline" class="img-thumbnail"
+                                    width="400">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Polyligon-->
+            <div class="modal fade" id="CreatePolygonModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Polygon</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <form method="POST" action="{{ route('polygons.store') }}" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                @csrf
+
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="example polygon">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="geom_polygon" class="form-label">Geometry</label>
+                                    <textarea class="form-control" id="geom_polygon" name="geom_polygon" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Photo</label>
+                                    <input type="file" class="form-control" id="image_polygon" name="image"
+                                        onchange="document.getElementById('preview-image-polygon').src = window.URL.createObjectURL(this.files[0])">
+                                </div>
+                                <img src="" alt="" id="preview-image-polygon" class="img-thumbnail"
+                                    width="400">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            @include('components.toast')
         </div>
     </div>
-
-    <!-- Modal Polyline-->
-    <div class="modal fade" id="CreatePolylineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create Polyline</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="POST" action="{{ route('polylines.store') }}" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                placeholder="example polylines">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="geom_polyline" class="form-label">Geometry</label>
-                            <textarea class="form-control" id="geom_polyline" name="geom_polyline" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Photo</label>
-                            <input type="file" class="form-control" id="image_polyline" name="image"
-                                onchange="document.getElementById('preview-image-polyline').src = window.URL.createObjectURL(this.files[0])">
-                        </div>
-                        <img src="" alt="" id="preview-image-polyline" class="img-thumbnail"
-                            width="400">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Polyligon-->
-    <div class="modal fade" id="CreatePolygonModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create Polygon</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="POST" action="{{ route('polygons.store') }}" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                placeholder="example polygon">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="geom_polygon" class="form-label">Geometry</label>
-                            <textarea class="form-control" id="geom_polygon" name="geom_polygon" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Photo</label>
-                            <input type="file" class="form-control" id="image_polygon" name="image"
-                                onchange="document.getElementById('preview-image-polygon').src = window.URL.createObjectURL(this.files[0])">
-                        </div>
-                        <img src="" alt="" id="preview-image-polygon" class="img-thumbnail"
-                            width="400">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-@endsection
-
-
-@section('scripts')
     <script src="https://unpkg.com/@terraformer/wkt"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -242,7 +276,8 @@
                     "<small>Dibuat oleh <strong>" + feature.properties.user_created + "</strong> <br>" +
 
                     "<div class='d-flex justify-content-between mt-4'>" +
-                    "<a href='" + routeedit + "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
+                    "<a href='" + routeedit +
+                    "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
                     "<form method='POST' action='" + routedelete + "'>" +
                     '@csrf' + '@method('DELETE')' +
                     "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Point?`)'><i class='fa-regular fa-trash-can'></i> Delete</button>" +
@@ -280,7 +315,8 @@
                     "' width='200' alt=''>" + "<br>" +
                     "<small>Dibuat oleh <strong>" + feature.properties.user_created + "</strong> <br>" +
                     "<div class='d-flex justify-content-between mt-4'>" +
-                    "<a href='" + routeedit + "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
+                    "<a href='" + routeedit +
+                    "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
                     "<form method='POST' action='" + routedelete + "'>" +
                     '@csrf' + '@method('DELETE')' +
                     "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Polyline?`)'><i class='fa-regular fa-trash-can'></i> Delete</button>" +
@@ -319,7 +355,8 @@
                     "' width='200' alt=''>" + "<br>" +
                     "<small>Dibuat oleh <strong>" + feature.properties.user_created + "</strong> <br>" +
                     "<div class='d-flex justify-content-between mt-4'>" +
-                    "<a href='" + routeedit + "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
+                    "<a href='" + routeedit +
+                    "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
                     "<form method='POST' action='" + routedelete + "'>" +
                     '@csrf' + '@method('DELETE')' +
                     "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Polygon?`)'><i class='fa-regular fa-trash-can'></i> Delete</button>" +
@@ -341,6 +378,19 @@
         });
 
         /* control layer */
-
     </script>
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.flexslider-min.js') }}"></script>
+    <script src="{{ asset('js/jquery.countTo.js') }}"></script>
+
+    <script src="{{ asset('js/main.js') }}"></script>
+</body>
+
+</html>
