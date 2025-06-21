@@ -346,8 +346,8 @@
 
                 <div class="layer-control-footer">
                     <div class="footer-item">
-                        <label class="footer-label">See Post Mining Model</label>
-                        <a href="{{ route('post-mining') }}" class="btn-footer-icon" title="See Post Mining Model">
+                        <label class="footer-label">See Land Use Now</label>
+                        <a href="{{ route('map') }}" class="btn-footer-icon" title="See Post Mining Model">
                             <i class="fa-solid fa-seedling"></i>
                         </a>
                     </div>
