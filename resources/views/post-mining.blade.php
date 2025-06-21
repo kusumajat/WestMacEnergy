@@ -35,7 +35,7 @@
             height: 30px;
             border-radius: 50%;
             border: 2px solid #ccc;
-            cursor: pointer;
+            cursor: titiker;
             display: inline-block;
             margin: 2px;
             transition: all 0.3s ease;
@@ -200,7 +200,8 @@
         }
 
         .footer-item:not(:last-child) {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
         .footer-item:hover {
             background-color: rgba(255, 255, 255, 0.05);
@@ -224,7 +225,7 @@
             justify-content: center;
             text-decoration: none;
             transition: all 0.2s ease-in-out;
-            cursor: pointer;
+            cursor: titiker;
         }
 
         .btn-footer-icon:hover {
@@ -263,7 +264,7 @@
             align-items: center;
             gap: 1rem;
             font-weight: 500;
-            cursor: pointer;
+            cursor: titiker;
         }
 
         .layer-icon {
@@ -275,7 +276,7 @@
         .form-switch .form-check-input {
             width: 48px;
             height: 24px;
-            cursor: pointer;
+            cursor: titiker;
             background-color: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.2);
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,0.5)'/%3e%3c/svg%3e");
@@ -316,30 +317,30 @@
                 {{-- Bagian Body (Kontrol Layer) --}}
                 <div class="layer-control-body">
                     <div class="layer-item">
-                        <label for="togglePoints" class="layer-label">
-                            <i class="layer-icon fa-solid fa-map-marker-alt" style="color: #E74C3C;"></i>
-                            <span>Points</span>
+                        <label for="toggleTitiks" class="layer-label">
+                            <i class="layer-icon fa-solid fa-map-marker-alt" style="color: #FFC300;"></i>
+                            <span>Titiks</span>
                         </label>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="togglePoints" checked>
+                            <input class="form-check-input" type="checkbox" role="switch" id="toggleTitiks" checked>
                         </div>
                     </div>
                     <div class="layer-item">
-                        <label for="togglePolylines" class="layer-label">
-                            <i class="layer-icon fa-solid fa-wave-square" style="color: #3498DB;"></i>
-                            <span>Polylines</span>
+                        <label for="toggleGariss" class="layer-label">
+                            <i class="layer-icon fa-solid fa-wave-square" style="color: #FFC300;"></i>
+                            <span>Gariss</span>
                         </label>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="togglePolylines" checked>
+                            <input class="form-check-input" type="checkbox" role="switch" id="toggleGariss" checked>
                         </div>
                     </div>
                     <div class="layer-item">
-                        <label for="togglePolygons" class="layer-label">
-                            <i class="layer-icon fa-solid fa-draw-polygon" style="color: #2ECC71;"></i>
-                            <span>Polygons</span>
+                        <label for="toggleAreas" class="layer-label">
+                            <i class="layer-icon fa-solid fa-draw-polygon" style="color: #FFC300;"></i>
+                            <span>Areas</span>
                         </label>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="togglePolygons" checked>
+                            <input class="form-check-input" type="checkbox" role="switch" id="toggleAreas" checked>
                         </div>
                     </div>
                 </div>
@@ -356,24 +357,24 @@
                 </div>
             </div>
 
-            <!-- Modal Point-->
-            <div class="modal fade" id="CreatePointModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <!-- Modal Titik-->
+            <div class="modal fade" id="CreateTitikModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Point</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Titik</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="{{ route('points.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('titiks.store') }}" enctype="multipart/form-data">
                             <div class="modal-body">
                                 @csrf
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="example point">
+                                        placeholder="example titik">
                                 </div>
 
                                 <div class="mb-3">
@@ -382,8 +383,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="geom_point" class="form-label">Geometry</label>
-                                    <textarea class="form-control" id="geom_point" name="geom_point" rows="3"></textarea>
+                                    <label for="geom_titik" class="form-label">Geometry</label>
+                                    <textarea class="form-control" id="geom_titik" name="geom_titik" rows="3"></textarea>
                                 </div>
 
                                 <div class="mb-3">
@@ -414,21 +415,21 @@
                                         <div class="color-option" data-color="#000000"
                                             style="background-color: #000000;" title="Black"></div>
                                     </div>
-                                    <input type="hidden" id="color_point" name="color" value="#FF0000">
+                                    <input type="hidden" id="color_titik" name="color" value="#FF0000">
                                     <div class="color-preview">
                                         <span>Selected Color:</span>
-                                        <div class="color-preview-circle" id="preview-color-point"
+                                        <div class="color-preview-circle" id="preview-color-titik"
                                             style="background-color: #FF0000;"></div>
-                                        <span id="color-name-point">Red</span>
+                                        <span id="color-name-titik">Red</span>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Photo</label>
-                                    <input type="file" class="form-control" id="image_point" name="image"
-                                        onchange="document.getElementById('preview-image-point').src = window.URL.createObjectURL(this.files[0])">
+                                    <input type="file" class="form-control" id="image_titik" name="image"
+                                        onchange="document.getElementById('preview-image-titik').src = window.URL.createObjectURL(this.files[0])">
                                 </div>
-                                <img src="" alt="" id="preview-image-point" class="img-thumbnail"
+                                <img src="" alt="" id="preview-image-titik" class="img-thumbnail"
                                     width="400">
                             </div>
                             <div class="modal-footer">
@@ -441,24 +442,24 @@
                 </div>
             </div>
 
-            <!-- Modal Polyline-->
-            <div class="modal fade" id="CreatePolylineModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <!-- Modal Garis-->
+            <div class="modal fade" id="CreateGarisModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Polyline</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Garis</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="{{ route('polylines.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('gariss.store') }}" enctype="multipart/form-data">
                             <div class="modal-body">
                                 @csrf
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="example polylines">
+                                        placeholder="example gariss">
                                 </div>
 
                                 <div class="mb-3">
@@ -467,8 +468,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="geom_polyline" class="form-label">Geometry</label>
-                                    <textarea class="form-control" id="geom_polyline" name="geom_polyline" rows="3"></textarea>
+                                    <label for="geom_garis" class="form-label">Geometry</label>
+                                    <textarea class="form-control" id="geom_garis" name="geom_garis" rows="3"></textarea>
                                 </div>
 
                                 <div class="mb-3">
@@ -499,21 +500,21 @@
                                         <div class="color-option" data-color="#000000"
                                             style="background-color: #000000;" title="Black"></div>
                                     </div>
-                                    <input type="hidden" id="color_polyline" name="color" value="#FF0000">
+                                    <input type="hidden" id="color_garis" name="color" value="#FF0000">
                                     <div class="color-preview">
                                         <span>Selected Color:</span>
-                                        <div class="color-preview-circle" id="preview-color-polyline"
+                                        <div class="color-preview-circle" id="preview-color-garis"
                                             style="background-color: #FF0000;"></div>
-                                        <span id="color-name-polyline">Red</span>
+                                        <span id="color-name-garis">Red</span>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Photo</label>
-                                    <input type="file" class="form-control" id="image_polyline" name="image"
-                                        onchange="document.getElementById('preview-image-polyline').src = window.URL.createObjectURL(this.files[0])">
+                                    <input type="file" class="form-control" id="image_garis" name="image"
+                                        onchange="document.getElementById('preview-image-garis').src = window.URL.createObjectURL(this.files[0])">
                                 </div>
-                                <img src="" alt="" id="preview-image-polyline" class="img-thumbnail"
+                                <img src="" alt="" id="preview-image-garis" class="img-thumbnail"
                                     width="400">
                             </div>
                             <div class="modal-footer">
@@ -526,24 +527,24 @@
                 </div>
             </div>
 
-            <!-- Modal Polygon-->
-            <div class="modal fade" id="CreatePolygonModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <!-- Modal Area-->
+            <div class="modal fade" id="CreateAreaModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Polygon</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Area</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <form method="POST" action="{{ route('polygons.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('areas.store') }}" enctype="multipart/form-data">
                             <div class="modal-body">
                                 @csrf
 
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="example polygon">
+                                        placeholder="example area">
                                 </div>
 
                                 <div class="mb-3">
@@ -552,8 +553,8 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="geom_polygon" class="form-label">Geometry</label>
-                                    <textarea class="form-control" id="geom_polygon" name="geom_polygon" rows="3"></textarea>
+                                    <label for="geom_area" class="form-label">Geometry</label>
+                                    <textarea class="form-control" id="geom_area" name="geom_area" rows="3"></textarea>
                                 </div>
 
                                 <div class="mb-3">
@@ -584,21 +585,21 @@
                                         <div class="color-option" data-color="#000000"
                                             style="background-color: #000000;" title="Black"></div>
                                     </div>
-                                    <input type="hidden" id="color_polygon" name="color" value="#FF0000">
+                                    <input type="hidden" id="color_area" name="color" value="#FF0000">
                                     <div class="color-preview">
                                         <span>Selected Color:</span>
-                                        <div class="color-preview-circle" id="preview-color-polygon"
+                                        <div class="color-preview-circle" id="preview-color-area"
                                             style="background-color: #FF0000;"></div>
-                                        <span id="color-name-polygon">Red</span>
+                                        <span id="color-name-area">Red</span>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Photo</label>
-                                    <input type="file" class="form-control" id="image_polygon" name="image"
-                                        onchange="document.getElementById('preview-image-polygon').src = window.URL.createObjectURL(this.files[0])">
+                                    <input type="file" class="form-control" id="image_area" name="image"
+                                        onchange="document.getElementById('preview-image-area').src = window.URL.createObjectURL(this.files[0])">
                                 </div>
-                                <img src="" alt="" id="preview-image-polygon" class="img-thumbnail"
+                                <img src="" alt="" id="preview-image-area" class="img-thumbnail"
                                     width="400">
                             </div>
                             <div class="modal-footer">
@@ -665,16 +666,16 @@
 
                 if (type === 'polyline') {
                     console.log("Create " + type);
-                    $('#geom_polyline').val(objectGeometry);
-                    $('#CreatePolylineModal').modal('show');
+                    $('#geom_garis').val(objectGeometry);
+                    $('#CreateGarisModal').modal('show');
                 } else if (type === 'polygon' || type === 'rectangle') {
                     console.log("Create " + type);
-                    $('#geom_polygon').val(objectGeometry);
-                    $('#CreatePolygonModal').modal('show');
+                    $('#geom_area').val(objectGeometry);
+                    $('#CreateAreaModal').modal('show');
                 } else if (type === 'marker') {
                     console.log("Create " + type);
-                    $('#geom_point').val(objectGeometry);
-                    $('#CreatePointModal').modal('show');
+                    $('#geom_titik').val(objectGeometry);
+                    $('#CreateTitikModal').modal('show');
                 } else {
                     console.log('__undefined__');
                 }
@@ -744,9 +745,9 @@
             }
 
             // Inisialisasi interaksi untuk setiap modal "Create"
-            initModalInteractions('#CreatePointModal');
-            initModalInteractions('#CreatePolylineModal');
-            initModalInteractions('#CreatePolygonModal');
+            initModalInteractions('#CreateTitikModal');
+            initModalInteractions('#CreateGarisModal');
+            initModalInteractions('#CreateAreaModal');
 
             // =================================================================
             // 3. LOGIKA LEAFLET DRAW (SAAT MENGGAMBAR)
@@ -758,14 +759,14 @@
 
                 let modalId, geomInputId;
                 if (type === 'marker') {
-                    modalId = '#CreatePointModal';
-                    geomInputId = '#geom_point';
+                    modalId = '#CreateTitikModal';
+                    geomInputId = '#geom_titik';
                 } else if (type === 'polyline') {
-                    modalId = '#CreatePolylineModal';
-                    geomInputId = '#geom_polyline';
+                    modalId = '#CreateGarisModal';
+                    geomInputId = '#geom_garis';
                 } else if (type === 'polygon' || type === 'rectangle') {
-                    modalId = '#CreatePolygonModal';
-                    geomInputId = '#geom_polygon';
+                    modalId = '#CreateAreaModal';
+                    geomInputId = '#geom_area';
                 }
 
                 if (modalId && geomInputId) {
@@ -777,22 +778,40 @@
             // =================================================================
             // 4. DEKLARASI LAYER & LOGIKA MENAMPILKAN DATA DARI API
             // =================================================================
-            var pointLayer, polylineLayer, polygonLayer;
+            var titikLayer, garisLayer, areaLayer;
 
             function createModernPopup(feature, layer) {
                 const props = feature.properties;
-                const type = feature.geometry.type.toLowerCase().replace('string', '');
-                let typePlural = `${type}s`;
-                if (type === 'linestring') typePlural = 'polylines'; // Normalisasi nama
+                const geomType = feature.geometry.type.toLowerCase(); // Hasilnya: "point", "linestring", "area"
+                let typePlural; // Variabel kosong untuk diisi
+
+                // ====================================================================
+                // INI ADALAH LOGIKA YANG BENAR DAN AMAN
+                // ====================================================================
+                if (geomType.includes('point')) {
+                    typePlural = 'titiks'; // <-- SECARA EKSPLISIT diatur ke 'titiks'
+                } else if (geomType.includes('linestring')) {
+                    typePlural = 'gariss'; // <-- Diatur ke 'gariss' (sesuai kode Anda sebelumnya)
+                } else if (geomType.includes('polygon')) {
+                    typePlural = 'areas'; // <-- Diatur ke 'areas'
+                } else {
+                    // Jika tipe geometri tidak dikenali, hentikan fungsi
+                    console.error("Tipe geometri tidak dikenali:", geomType);
+                    return;
+                }
 
                 const imageSrc = props.image ? `{{ asset('storage/images') }}/${props.image}` : null;
+
+                // Sekarang ${typePlural} akan selalu benar sesuai dengan yang diatur di atas
+                // Contoh: /titiks/5 atau /gariss/2
                 const editUrl = `{{ url('/') }}/${typePlural}/${props.id}/edit`;
                 const deleteUrl = `{{ url('/') }}/${typePlural}/${props.id}`;
 
+                // Menentukan ikon berdasarkan typePlural yang sudah benar
                 let iconClass = 'fa-question-circle';
-                if (type === 'point') iconClass = 'fa-map-marker-alt';
-                if (type === 'linestring') iconClass = 'fa-road';
-                if (type === 'polygon') iconClass = 'fa-draw-polygon';
+                if (typePlural === 'titiks') iconClass = 'fa-map-marker-alt';
+                if (typePlural === 'gariss') iconClass = 'fa-road';
+                if (typePlural === 'areas') iconClass = 'fa-draw-area';
 
                 let details = '';
                 if (props.length_m) details =
@@ -801,21 +820,25 @@
                     `<div class="d-flex align-items-center text-muted small mb-1"><i class="fa-solid fa-vector-square fa-fw me-2"></i><strong>${Number(props.luas_hektar).toFixed(2)} Hectare</strong></div>`;
 
                 const popupContent = `
-                    <div class="popup-card">
-                        ${imageSrc ? `<img src="${imageSrc}" alt="Foto" class="popup-image">` : `<div class="popup-image-placeholder"><i class="fa-solid ${iconClass} fa-2x"></i></div>`}
-                        <div class="popup-content-area">
-                            <div class="popup-title">${props.name || 'No Name'}</div>
-                            ${props.description ? `<p class="popup-description">${props.description}</p>` : ''}
-                            ${details}
-                        </div>
-                        <div class="popup-footer">
-                            <div><small>Oleh: <strong>${props.user_created || 'N/A'}</strong></small></div>
-                            <div class="popup-actions d-flex align-items-center">
-                                <a href="${editUrl}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">@csrf @method('DELETE')<button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button></form>
-                            </div>
-                        </div>
-                    </div>`;
+        <div class="popup-card">
+            ${imageSrc ? `<img src="${imageSrc}" alt="Foto" class="popup-image">` : `<div class="popup-image-placeholder"><i class="fa-solid ${iconClass} fa-2x"></i></div>`}
+            <div class="popup-content-area">
+                <div class="popup-title">${props.name || 'No Name'}</div>
+                ${props.description ? `<p class="popup-description">${props.description}</p>` : ''}
+                ${details}
+            </div>
+            <div class="popup-footer">
+                <div><small>Oleh: <strong>${props.user_created || 'N/A'}</strong></small></div>
+                <div class="popup-actions d-flex align-items-center">
+                    <a href="${editUrl}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>`;
 
                 layer.bindPopup(popupContent, {
                     className: 'custom-leaflet-popup'
@@ -823,8 +846,8 @@
                 layer.bindTooltip(props.name);
             }
 
-            // Fetch Points
-            pointLayer = L.geoJson(null, {
+            // Fetch Titiks
+            titikLayer = L.geoJson(null, {
                 pointToLayer: (f, l) => L.circleMarker(l, {
                     radius: 6,
                     fillColor: f.properties.color || '#E74C3C',
@@ -835,10 +858,10 @@
                 }),
                 onEachFeature: createModernPopup
             });
-            $.getJSON("{{ route('api.points') }}", data => pointLayer.addData(data).addTo(map));
+            $.getJSON("{{ route('api.titiks') }}", data => titikLayer.addData(data).addTo(map));
 
-            // Fetch Polylines
-            polylineLayer = L.geoJson(null, {
+            // Fetch Gariss
+            garisLayer = L.geoJson(null, {
                 style: f => ({
                     color: f.properties.color || '#E74C3C',
                     weight: 4,
@@ -846,10 +869,10 @@
                 }),
                 onEachFeature: createModernPopup
             });
-            $.getJSON("{{ route('api.polylines') }}", data => polylineLayer.addData(data).addTo(map));
+            $.getJSON("{{ route('api.gariss') }}", data => garisLayer.addData(data).addTo(map));
 
-            // Fetch Polygons
-            polygonLayer = L.geoJson(null, {
+            // Fetch Areas
+            areaLayer = L.geoJson(null, {
                 style: f => ({
                     fillColor: f.properties.color || '#E74C3C',
                     color: f.properties.color || '#E74C3C',
@@ -859,24 +882,24 @@
                 }),
                 onEachFeature: createModernPopup
             });
-            $.getJSON("{{ route('api.polygons') }}", data => polygonLayer.addData(data).addTo(map));
+            $.getJSON("{{ route('api.areas') }}", data => areaLayer.addData(data).addTo(map));
 
             // =================================================================
             // 5. FUNGSIONALITAS CONTROL LAYER
             // =================================================================
-            $('#togglePoints').on('change', function() {
-                if ($(this).is(':checked')) map.addLayer(pointLayer);
-                else map.removeLayer(pointLayer);
+            $('#toggleTitiks').on('change', function() {
+                if ($(this).is(':checked')) map.addLayer(titikLayer);
+                else map.removeLayer(titikLayer);
             });
 
-            $('#togglePolylines').on('change', function() {
-                if ($(this).is(':checked')) map.addLayer(polylineLayer);
-                else map.removeLayer(polylineLayer);
+            $('#toggleGariss').on('change', function() {
+                if ($(this).is(':checked')) map.addLayer(garisLayer);
+                else map.removeLayer(garisLayer);
             });
 
-            $('#togglePolygons').on('change', function() {
-                if ($(this).is(':checked')) map.addLayer(polygonLayer);
-                else map.removeLayer(polygonLayer);
+            $('#toggleAreas').on('change', function() {
+                if ($(this).is(':checked')) map.addLayer(areaLayer);
+                else map.removeLayer(areaLayer);
             });
         });
     </script>

@@ -1,23 +1,30 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AreasController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\GarissController;
 use App\Http\Controllers\PointsController;
+use App\Http\Controllers\PublicController;
+use App\Http\Controllers\TitiksController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PolygonsController;
 use App\Http\Controllers\PolylinesController;
-use App\Http\Controllers\PublicController;
 use App\Http\Controllers\PostMiningController;
 
 Route::get('/map', [PointsController::class, 'index']) ->name('map');
 
+
 Route::get('/table', [TableController::class, 'index']) ->name('table');
 
 Route::resource('points', PointsController::class);
+Route::resource('titiks', TitiksController::class);
 
 Route::resource('polylines', PolylinesController::class);
+Route::resource('gariss', GarissController::class);
 
 Route::resource('polygons', PolygonsController::class);
+Route::resource('areas', AreasController::class);
 
 Route::get('/', [PublicController::class, 'index']) ->name('home');
 

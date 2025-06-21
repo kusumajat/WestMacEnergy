@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AreasModel;
+use App\Models\GarissModel;
 use App\Models\PointsModel;
+use App\Models\TitiksModel;
 use Illuminate\Http\Request;
 use App\Models\PolygonsModel;
 use App\Models\PolylinesModel;
+
 
 class APIController extends Controller
 {
@@ -14,6 +18,9 @@ class APIController extends Controller
         $this->points = new PointsModel();
         $this->polylines = new PolylinesModel();
         $this->polygons = new PolygonsModel();
+        $this->titiks = new TitiksModel();
+        $this->gariss = new GarissModel();
+        $this->areas = new AreasModel();
     }
 
     public function points()
@@ -49,5 +56,40 @@ class APIController extends Controller
     {
         $polygon = $this->polygons->geojson_polygon($id);
         return response()->json($polygon);
+    }
+
+    public function titiks()
+    {
+        $titiks = $this->titiks->geojson_titiks();
+        return response()->json($titiks);
+    }
+
+    public function titik($id)
+    {
+        $titik = $this->titiks->geojson_titik($id);
+        return response()->json($titik);
+    }
+
+    public function gariss()
+    {
+        $gariss = $this->gariss->geojson_gariss();
+        return response()->json($gariss, 200, [], JSON_NUMERIC_CHECK);
+    }
+    public function garis($id)
+    {
+        $garis = $this->gariss->geojson_garis($id);
+        return response()->json($garis, 200, [], JSON_NUMERIC_CHECK);
+    }
+
+    public function areas()
+    {
+        $areas = $this->areas->geojson_areas();
+        return response()->json($areas);
+    }
+
+    public function area($id)
+    {
+        $area = $this->areas->geojson_area($id);
+        return response()->json($area);
     }
 }

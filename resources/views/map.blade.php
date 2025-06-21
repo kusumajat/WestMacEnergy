@@ -317,7 +317,7 @@
                 <div class="layer-control-body">
                     <div class="layer-item">
                         <label for="togglePoints" class="layer-label">
-                            <i class="layer-icon fa-solid fa-map-marker-alt" style="color: #E74C3C;"></i>
+                            <i class="layer-icon fa-solid fa-map-marker-alt" style="color: #FFC300;"></i>
                             <span>Points</span>
                         </label>
                         <div class="form-check form-switch">
@@ -326,7 +326,7 @@
                     </div>
                     <div class="layer-item">
                         <label for="togglePolylines" class="layer-label">
-                            <i class="layer-icon fa-solid fa-wave-square" style="color: #3498DB;"></i>
+                            <i class="layer-icon fa-solid fa-wave-square" style="color: #FFC300;"></i>
                             <span>Polylines</span>
                         </label>
                         <div class="form-check form-switch">
@@ -335,7 +335,7 @@
                     </div>
                     <div class="layer-item">
                         <label for="togglePolygons" class="layer-label">
-                            <i class="layer-icon fa-solid fa-draw-polygon" style="color: #2ECC71;"></i>
+                            <i class="layer-icon fa-solid fa-draw-polygon" style="color: #FFC300;"></i>
                             <span>Polygons</span>
                         </label>
                         <div class="form-check form-switch">

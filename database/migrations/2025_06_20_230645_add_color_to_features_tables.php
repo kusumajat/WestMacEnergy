@@ -32,14 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('points', function (Blueprint $table) {
-            $table->dropColumn('color');
-        });
-        Schema::table('polylines', function (Blueprint $table) {
-            $table->dropColumn('color');
-        });
-        Schema::table('polygons', function (Blueprint $table) {
-            $table->dropColumn('color');
-        });
+        
     }
 };
