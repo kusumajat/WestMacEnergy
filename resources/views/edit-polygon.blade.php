@@ -11,6 +11,125 @@
             width: 100%;
             height: calc(100vh - 56px);
         }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            cursor: pointer;
+            display: inline-block;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+            border-color: #000;
+        }
+
+        .color-option.selected {
+            border-color: #000;
+            border-width: 3px;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-selection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .color-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .color-preview-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+
+        .custom-leaflet-popup .leaflet-popup-content-wrapper {
+            background: #ffffff;
+            padding: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .custom-leaflet-popup .leaflet-popup-content {
+            margin: 0 !important;
+            min-width: 280px;
+        }
+
+        .custom-leaflet-popup .leaflet-popup-tip {
+            background: #ffffff;
+        }
+
+        .popup-card {
+            width: 100%;
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .popup-image-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .popup-content-area {
+            padding: 1rem;
+        }
+
+        .popup-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
+            color: #212529;
+        }
+
+        .popup-description {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .popup-footer {
+            padding: 0.75rem 1rem;
+            background-color: #f8f9fa;
+            font-size: 0.8rem;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .popup-actions form {
+            margin-bottom: 0;
+        }
     </style>
 @endsection
 
@@ -47,11 +166,49 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label">Color</label>
+                            <div class="color-selection">
+                                <div class="color-option" data-color="#FF0000" style="background-color: #FF0000;"
+                                    title="Red"></div>
+                                <div class="color-option" data-color="#00FF00" style="background-color: #00FF00;"
+                                    title="Green"></div>
+                                <div class="color-option" data-color="#0000FF" style="background-color: #0000FF;"
+                                    title="Blue"></div>
+                                <div class="color-option" data-color="#FFFF00" style="background-color: #FFFF00;"
+                                    title="Yellow"></div>
+                                <div class="color-option" data-color="#FF00FF" style="background-color: #FF00FF;"
+                                    title="Magenta"></div>
+                                <div class="color-option" data-color="#00FFFF" style="background-color: #00FFFF;"
+                                    title="Cyan"></div>
+                                <div class="color-option" data-color="#FFA500" style="background-color: #FFA500;"
+                                    title="Orange"></div>
+                                <div class="color-option" data-color="#800080" style="background-color: #800080;"
+                                    title="Purple"></div>
+                                <div class="color-option" data-color="#FFC0CB" style="background-color: #FFC0CB;"
+                                    title="Pink"></div>
+                                <div class="color-option" data-color="#A52A2A" style="background-color: #A52A2A;"
+                                    title="Brown"></div>
+                                <div class="color-option" data-color="#808080" style="background-color: #808080;"
+                                    title="Gray"></div>
+                                <div class="color-option" data-color="#000000" style="background-color: #000000;"
+                                    title="Black"></div>
+                            </div>
+                            <input type="hidden" id="color_polygon" name="color" value="">
+                            <div class="color-preview">
+                                <span>Selected Color:</span>
+                                <div class="color-preview-circle" id="preview-color-polygon"
+                                    style="background-color: #FF0000;"></div>
+                                <span id="color-name-polygon">Red</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="image" class="form-label">Photo</label>
                             <input type="file" class="form-control" id="image_polygon" name="image"
                                 onchange="document.getElementById('preview-image-polygon').src = window.URL.createObjectURL(this.files[0])">
                         </div>
-                        <img src="" alt="" id="preview-image-polygon" class="img-thumbnail" width="400">
+                        <img src="" alt="" id="preview-image-polygon" class="img-thumbnail"
+                            width="400">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -78,7 +235,49 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        // Color selection functionality
+        const colorNames = {
+            '#FF0000': 'Red',
+            '#00FF00': 'Green',
+            '#0000FF': 'Blue',
+            '#FFFF00': 'Yellow',
+            '#FF00FF': 'Magenta',
+            '#00FFFF': 'Cyan',
+            '#FFA500': 'Orange',
+            '#800080': 'Purple',
+            '#FFC0CB': 'Pink',
+            '#A52A2A': 'Brown',
+            '#808080': 'Gray',
+            '#000000': 'Black'
+        };
 
+        function initColorSelection() {
+            const colorOptions = document.querySelectorAll('.color-option');
+            const colorInput = document.querySelector('#color_polygon');
+            const previewColor = document.querySelector('#preview-color-polygon');
+            const colorName = document.querySelector('#color-name-polygon');
+
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+
+                    // Update form values
+                    const selectedColor = this.dataset.color;
+                    colorInput.value = selectedColor;
+
+                    // Update preview
+                    previewColor.style.backgroundColor = selectedColor;
+                    colorName.textContent = colorNames[selectedColor];
+                });
+            });
+        }
+
+        // Initialize color selection
+        initColorSelection();
 
         /* Digitize Function */
         var drawnItems = new L.FeatureGroup();
@@ -115,7 +314,19 @@
                 $('#name').val(properties.name);
                 $('#description').val(properties.description);
                 $('#geom_polygon').val(objectGeometry);
-                $('#preview-image-polygon').attr('src', "{{ asset('storage/images') }}/"+ properties.image);
+                $('#preview-image-polygon').attr('src', "{{ asset('storage/images') }}/" + properties
+                    .image);
+
+                // Set color if available
+                if (properties.color) {
+                    $('#color_polygon').val(properties.color);
+                    $('#preview-color-polygon').css('background-color', properties.color);
+                    $('#color-name-polygon').text(colorNames[properties.color] || 'Custom');
+
+                    // Mark the color option as selected
+                    $('.color-option').removeClass('selected');
+                    $(`.color-option[data-color="${properties.color}"]`).addClass('selected');
+                }
 
                 // menampilkan modal edit
                 $('#editPolygonModal').modal('show');
@@ -126,13 +337,30 @@
     <script>
         /* GeoJSON Polygon */
         var polygon = L.geoJson(null, {
+            style: function(feature) {
+                return {
+                    fillColor: feature.properties.color || '#3498DB',
+                    color: feature.properties.color || '#3498DB',
+                    weight: 3,
+                    fillOpacity: 0.35
+                };
+            },
             onEachFeature: function(feature, layer) {
-
                 // memasukkan layer polygon ke dalam drawnItems
                 drawnItems.addLayer(layer);
 
                 var properties = feature.properties;
                 var objectGeometry = Terraformer.geojsonToWKT(feature.geometry);
+
+                // Create popup content similar to map page
+                const imageSrc = feature.properties.image ?
+                    `{{ asset('storage/images') }}/${feature.properties.image}` : null;
+
+                layer.bindTooltip(feature.properties.name, {
+                    permanent: false,
+                    direction: 'top',
+                    sticky: true
+                });
 
                 layer.on({
                     click: function(e) {
@@ -140,16 +368,43 @@
                         $('#name').val(feature.properties.name);
                         $('#description').val(feature.properties.description);
                         $('#geom_polygon').val(objectGeometry);
-                        $('#preview-image-polygon').attr('src', "{{ asset('storage/images') }}/"+ feature.properties.image);
+                        $('#preview-image-polygon').attr('src', "{{ asset('storage/images') }}/" +
+                            feature.properties.image);
+
+                        // Set color if available
+                        if (feature.properties.color) {
+                            $('#color_polygon').val(feature.properties.color);
+                            $('#preview-color-polygon').css('background-color', feature.properties
+                                .color);
+                            $('#color-name-polygon').text(colorNames[feature.properties.color] ||
+                                'Custom');
+
+                            // Mark the color option as selected
+                            $('.color-option').removeClass('selected');
+                            $(`.color-option[data-color="${feature.properties.color}"]`).addClass(
+                                'selected');
+                        } else {
+                            // Default to first color if no color is set
+                            $('.color-option').removeClass('selected');
+                            $('.color-option').first().addClass('selected');
+                            $('#color_polygon').val('#FF0000');
+                            $('#preview-color-polygon').css('background-color', '#FF0000');
+                            $('#color-name-polygon').text('Red');
+                        }
 
                         // menampilkan modal edit
                         $('#editPolygonModal').modal('show');
                     },
-
                 });
-
             },
         });
+
+        // Function to edit polygon (called from popup)
+        function editPolygon(polygonId) {
+            // This function can be used if you want to handle edit differently
+            // For now, it will use the same click functionality
+        }
+
         $.getJSON("{{ route('api.polygon', $id) }}", function(data) {
             polygon.addData(data);
             map.addLayer(polygon);
@@ -157,6 +412,5 @@
                 padding: [100, 100]
             });
         });
-
     </script>
 @endsection

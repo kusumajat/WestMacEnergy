@@ -460,29 +460,23 @@
             const previewColor = modal.querySelector(`#preview-color-${modalType.toLowerCase()}`);
             const colorName = modal.querySelector(`#color-name-${modalType.toLowerCase()}`);
 
-            // Set default selection
             colorOptions[0].classList.add('selected');
 
             colorOptions.forEach(option => {
                 option.addEventListener('click', function() {
-                    // Remove selected class from all options
                     colorOptions.forEach(opt => opt.classList.remove('selected'));
 
-                    // Add selected class to clicked option
                     this.classList.add('selected');
 
-                    // Update hidden input value
                     const selectedColor = this.dataset.color;
                     colorInput.value = selectedColor;
 
-                    // Update preview
                     previewColor.style.backgroundColor = selectedColor;
                     colorName.textContent = colorNames[selectedColor];
                 });
             });
         }
 
-        // Initialize color selection for all modals
         initColorSelection('Point');
         initColorSelection('Polyline');
         initColorSelection('Polygon');
@@ -542,18 +536,16 @@
         /* GeoJSON Point */
         var point = L.geoJson(null, {
             pointToLayer: function(feature, latlng) {
-                // Opsi visual untuk setiap titik (marker)
                 return L.circleMarker(latlng, {
                     radius: 6,
                     fillColor: feature.properties.color || '#3498DB',
                     color: '#ffffff',
-                    weight: 2,
+                    weight: 3,
                     opacity: 1,
                     fillOpacity: 1
                 });
             },
             onEachFeature: function(feature, layer) {
-                // === HTML BARU UNTUK TAMPILAN POPUP MINIMALIS ===
                 const imageSrc = feature.properties.image ?
                     `{{ asset('storage/images') }}/${feature.properties.image}` : null;
                 const routeedit = "{{ route('points.edit', ':id') }}".replace(':id', feature.properties.id);
@@ -590,12 +582,9 @@
             </div>
         `;
 
-                // Mengikat popup ke layer dengan class kustom
                 layer.bindPopup(popupContent, {
-                    className: 'custom-leaflet-popup' // Ini penting untuk menerapkan CSS kustom
+                    className: 'custom-leaflet-popup'
                 });
-
-                // Tooltip saat mouse hover (tetap sama)
                 layer.bindTooltip(feature.properties.name, {
                     permanent: false,
                     direction: 'top',
@@ -658,12 +647,10 @@
             </div>
         `;
 
-        // Mengikat popup ke layer dengan class kustom
         layer.bindPopup(popupContent, {
             className: 'custom-leaflet-popup'
         });
 
-        // Tooltip saat mouse hover
         layer.bindTooltip(feature.properties.name);
     }
 });
@@ -675,16 +662,14 @@
         /* GeoJSON Polygon */
         var polygon = L.geoJson(null, {
     style: function(feature) {
-        // Style untuk area polygon
         return {
-            fillColor: feature.properties.color || '#3498DB', // Warna isian, default ungu
-            color: feature.properties.color || '#3498DB', // Warna garis tepi putih
+            fillColor: feature.properties.color || '#3498DB',
+            color: feature.properties.color || '#3498DB',
             weight: 3,
             fillOpacity: 0.35
         };
     },
     onEachFeature: function(feature, layer) {
-        // === HTML BARU UNTUK TAMPILAN POPUP MINIMALIS ===
         const imageSrc = feature.properties.image ? `{{ asset('storage/images') }}/${feature.properties.image}` : null;
         const routeedit = "{{ route('polygons.edit', ':id') }}".replace(':id', feature.properties.id);
         const routedelete = "{{ route('polygons.destroy', ':id') }}".replace(':id', feature.properties.id);
@@ -725,12 +710,10 @@
             </div>
         `;
 
-        // Mengikat popup ke layer dengan class kustom
         layer.bindPopup(popupContent, {
             className: 'custom-leaflet-popup'
         });
 
-        // Tooltip saat mouse hover
         layer.bindTooltip(feature.properties.name);
     }
 });
