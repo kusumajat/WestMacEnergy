@@ -152,6 +152,147 @@
             margin-bottom: 0;
             /* Menghilangkan margin bawah default dari form */
         }
+
+        .layer-control-card {
+            position: absolute;
+            top: 20px;
+            /* Sedikit di bawah toolbar Draw */
+            right: 20px;
+            z-index: 1000;
+            width: 260px;
+            background-color: rgba(29, 29, 29, 0.8);
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .layer-control-header {
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.8rem 1.2rem;
+            background-color: #1D1D1D;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .layer-control-body {
+            padding: 0.5rem;
+        }
+
+        .layer-control-footer {
+            padding: 0.5rem 0.75rem;
+            background-color: #1D1D1D;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0.5rem;
+            border-radius: 6px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .footer-item:not(:last-child) {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .footer-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-label {
+            font-weight: 500;
+            color: #d0d0d0;
+            margin: 0;
+        }
+
+        .btn-footer-icon {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            border: 1px solid transparent;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .btn-footer-icon:hover {
+            background-color: #ffc107;
+            color: #1a1a1a;
+            transform: scale(1.1);
+        }
+
+        .footer-item form {
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .layer-control-footer form {
+            margin: 0;
+            padding: 0;
+            display: inline;
+        }
+
+        .layer-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0.7rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .layer-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .layer-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .layer-icon {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .form-switch .form-check-input {
+            width: 48px;
+            height: 24px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,0.5)'/%3e%3c/svg%3e");
+        }
+
+        .form-switch .form-check-input:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,0.5)'/%3e%3c/svg%3e");
+        }
+
+        .form-switch .form-check-input:checked {
+            background-color: #ffc107;
+            /* Warna emas yang cocok dengan tema Balay */
+            border-color: #ffc107;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+        }
     </style>
     <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
 </head>
@@ -164,6 +305,56 @@
 
         <div id="colorlib-map">
             <div id="map"></div>
+
+            <div class="layer-control-card">
+                {{-- Bagian Header --}}
+                <div class="layer-control-header">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Layer Control</span>
+                </div>
+
+                {{-- Bagian Body (Kontrol Layer) --}}
+                <div class="layer-control-body">
+                    <div class="layer-item">
+                        <label for="togglePoints" class="layer-label">
+                            <i class="layer-icon fa-solid fa-map-marker-alt" style="color: #E74C3C;"></i>
+                            <span>Points</span>
+                        </label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="togglePoints" checked>
+                        </div>
+                    </div>
+                    <div class="layer-item">
+                        <label for="togglePolylines" class="layer-label">
+                            <i class="layer-icon fa-solid fa-wave-square" style="color: #3498DB;"></i>
+                            <span>Polylines</span>
+                        </label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="togglePolylines" checked>
+                        </div>
+                    </div>
+                    <div class="layer-item">
+                        <label for="togglePolygons" class="layer-label">
+                            <i class="layer-icon fa-solid fa-draw-polygon" style="color: #2ECC71;"></i>
+                            <span>Polygons</span>
+                        </label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="togglePolygons" checked>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layer-control-footer">
+                    <div class="footer-item">
+                        <label class="footer-label">Post Mining</label>
+                        <a href="{{ route('home') }}" class="btn-footer-icon" title="See Post Mining Model">
+                            <i class="fa-solid fa-seedling"></i>
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
 
             <!-- Modal Point-->
             <div class="modal fade" id="CreatePointModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -424,318 +615,271 @@
             @include('components.toast')
         </div>
     </div>
-    <script src="https://unpkg.com/@terraformer/wkt"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/@terraformer/wkt"></script>
 
+    {{-- Script Aplikasi Utama --}}
     <script>
-        var map = L.map('map').setView([-5.29, 122.861], 13);
+        $(document).ready(function() {
+            // =================================================================
+            // 1. INISIALISASI PETA & KONTROL DRAW
+            // =================================================================
+            var map = L.map('map').setView([-5.29, 122.861], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+            /* Digitize Function */
+            var drawnItems = new L.FeatureGroup();
+            map.addLayer(drawnItems);
 
-        // Color selection functionality
-        const colorNames = {
-            '#FF0000': 'Red',
-            '#00FF00': 'Green',
-            '#0000FF': 'Blue',
-            '#FFFF00': 'Yellow',
-            '#FF00FF': 'Magenta',
-            '#00FFFF': 'Cyan',
-            '#FFA500': 'Orange',
-            '#800080': 'Purple',
-            '#FFC0CB': 'Pink',
-            '#A52A2A': 'Brown',
-            '#808080': 'Gray',
-            '#000000': 'Black'
-        };
-
-        function initColorSelection(modalType) {
-            const modal = document.querySelector(`#Create${modalType}Modal`);
-            const colorOptions = modal.querySelectorAll('.color-option');
-            const colorInput = modal.querySelector(`#color_${modalType.toLowerCase()}`);
-            const previewColor = modal.querySelector(`#preview-color-${modalType.toLowerCase()}`);
-            const colorName = modal.querySelector(`#color-name-${modalType.toLowerCase()}`);
-
-            colorOptions[0].classList.add('selected');
-
-            colorOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    colorOptions.forEach(opt => opt.classList.remove('selected'));
-
-                    this.classList.add('selected');
-
-                    const selectedColor = this.dataset.color;
-                    colorInput.value = selectedColor;
-
-                    previewColor.style.backgroundColor = selectedColor;
-                    colorName.textContent = colorNames[selectedColor];
-                });
+            var drawControl = new L.Control.Draw({
+                draw: {
+                    position: 'topleft',
+                    polyline: true,
+                    polygon: true,
+                    rectangle: true,
+                    circle: false,
+                    marker: true,
+                    circlemarker: false
+                },
+                edit: false
             });
-        }
 
-        initColorSelection('Point');
-        initColorSelection('Polyline');
-        initColorSelection('Polygon');
+            map.addControl(drawControl);
 
-        /* Digitize Function */
-        var drawnItems = new L.FeatureGroup();
-        map.addLayer(drawnItems);
+            map.on('draw:created', function(e) {
+                var type = e.layerType,
+                    layer = e.layer;
 
-        var drawControl = new L.Control.Draw({
-            draw: {
-                position: 'topleft',
-                polyline: true,
-                polygon: true,
-                rectangle: true,
-                circle: false,
-                marker: true,
-                circlemarker: false
-            },
-            edit: false
-        });
+                console.log(type);
 
-        map.addControl(drawControl);
+                var drawnJSONObject = layer.toGeoJSON();
+                var objectGeometry = Terraformer.geojsonToWKT(drawnJSONObject.geometry);
 
-        map.on('draw:created', function(e) {
-            var type = e.layerType,
-                layer = e.layer;
+                console.log(drawnJSONObject);
+                console.log(objectGeometry);
 
-            console.log(type);
-
-            var drawnJSONObject = layer.toGeoJSON();
-            var objectGeometry = Terraformer.geojsonToWKT(drawnJSONObject.geometry);
-
-            console.log(drawnJSONObject);
-            console.log(objectGeometry);
-
-            if (type === 'polyline') {
-                console.log("Create " + type);
-                $('#geom_polyline').val(objectGeometry);
-                $('#CreatePolylineModal').modal('show');
-            } else if (type === 'polygon' || type === 'rectangle') {
-                console.log("Create " + type);
-                $('#geom_polygon').val(objectGeometry);
-                $('#CreatePolygonModal').modal('show');
-            } else if (type === 'marker') {
-                console.log("Create " + type);
-                $('#geom_point').val(objectGeometry);
-                $('#CreatePointModal').modal('show');
-            } else {
-                console.log('__undefined__');
-            }
-
-            drawnItems.addLayer(layer);
-        });
-    </script>
-
-    <script>
-        /* GeoJSON Point */
-        var point = L.geoJson(null, {
-            pointToLayer: function(feature, latlng) {
-                return L.circleMarker(latlng, {
-                    radius: 6,
-                    fillColor: feature.properties.color || '#3498DB',
-                    color: '#ffffff',
-                    weight: 3,
-                    opacity: 1,
-                    fillOpacity: 1
-                });
-            },
-            onEachFeature: function(feature, layer) {
-                const imageSrc = feature.properties.image ?
-                    `{{ asset('storage/images') }}/${feature.properties.image}` : null;
-                const routeedit = "{{ route('points.edit', ':id') }}".replace(':id', feature.properties.id);
-                const routedelete = "{{ route('points.destroy', ':id') }}".replace(':id', feature.properties
-                    .id);
-
-                const popupContent = `
-            <div class="popup-card">
-                ${imageSrc ?
-                    `<img src="${imageSrc}" alt="Foto Lokasi" class="popup-image">` :
-                    `<div class="popup-image-placeholder"><i class="fa-solid fa-camera fa-2x"></i></div>`
+                if (type === 'polyline') {
+                    console.log("Create " + type);
+                    $('#geom_polyline').val(objectGeometry);
+                    $('#CreatePolylineModal').modal('show');
+                } else if (type === 'polygon' || type === 'rectangle') {
+                    console.log("Create " + type);
+                    $('#geom_polygon').val(objectGeometry);
+                    $('#CreatePolygonModal').modal('show');
+                } else if (type === 'marker') {
+                    console.log("Create " + type);
+                    $('#geom_point').val(objectGeometry);
+                    $('#CreatePointModal').modal('show');
+                } else {
+                    console.log('__undefined__');
                 }
 
-                <div class="popup-content-area">
-                    <div class="popup-title">${feature.properties.name || 'Tanpa Nama'}</div>
-                    ${feature.properties.description ?
-                        `<p class="popup-description">${feature.properties.description}</p>` : ''
-                    }
-                </div>
+                drawnItems.addLayer(layer);
+            });
 
-                <div class="popup-footer">
-                    <div>
-                        <small>Oleh: <strong>${feature.properties.user_created || 'N/A'}</strong></small>
-                    </div>
-                    <div class="popup-actions d-flex align-items-center">
-                        <a href="${routeedit}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <form method="POST" action="${routedelete}" onsubmit="return confirm('Anda yakin ingin menghapus titik ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        `;
+            // =================================================================
+            // 2. LOGIKA MODAL CREATE (UNTUK SEMUA TIPE)
+            // =================================================================
+            const colorNames = {
+                '#FF0000': 'Red',
+                '#00FF00': 'Green',
+                '#0000FF': 'Blue',
+                '#FFFF00': 'Yellow',
+                '#FF00FF': 'Magenta',
+                '#00FFFF': 'Cyan',
+                '#FFA500': 'Orange',
+                '#800080': 'Purple',
+                '#FFC0CB': 'Pink',
+                '#A52A2A': 'Brown',
+                '#808080': 'Gray',
+                '#000000': 'Black'
+            };
+
+            function initModalInteractions(modalId) {
+                const $modal = $(modalId);
+                const $form = $modal.find('form');
+                const $colorOptions = $modal.find('.color-option');
+                const $colorInput = $modal.find('input[name="color"]');
+                const $imageInput = $modal.find('input[name="image"]');
+                const $imagePreview = $modal.find('img[id^="preview-image"]');
+
+                // Logika Pemilih Warna
+                $colorOptions.on('click', function() {
+                    const selectedColor = $(this).data('color');
+                    $colorOptions.removeClass('selected');
+                    $(this).addClass('selected');
+                    $colorInput.val(selectedColor);
+
+                    // Update preview jika ada
+                    const $previewCircle = $modal.find('.color-preview-circle');
+                    const $colorNameSpan = $modal.find('span[id^="color-name"]');
+                    if ($previewCircle.length) $previewCircle.css('background-color', selectedColor);
+                    if ($colorNameSpan.length) $colorNameSpan.text(colorNames[selectedColor] || 'Custom');
+                });
+
+                // Logika Preview Gambar
+                $imageInput.on('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        $imagePreview.attr('src', URL.createObjectURL(file)).show();
+                    }
+                });
+
+                // Logika Reset Form saat Modal Ditutup
+                $modal.on('hidden.bs.modal', function() {
+                    $form[0].reset();
+                    $imagePreview.attr('src', '').hide();
+                    $colorOptions.removeClass('selected').first().addClass('selected');
+                    const defaultColor = $colorOptions.first().data('color');
+                    $colorInput.val(defaultColor);
+                });
+
+                // Inisialisasi warna default saat pertama kali
+                $colorOptions.first().trigger('click');
+            }
+
+            // Inisialisasi interaksi untuk setiap modal "Create"
+            initModalInteractions('#CreatePointModal');
+            initModalInteractions('#CreatePolylineModal');
+            initModalInteractions('#CreatePolygonModal');
+
+            // =================================================================
+            // 3. LOGIKA LEAFLET DRAW (SAAT MENGGAMBAR)
+            // =================================================================
+            map.on('draw:created', function(e) {
+                var type = e.layerType,
+                    layer = e.layer;
+                var objectGeometry = Terraformer.geojsonToWKT(layer.toGeoJSON().geometry);
+
+                let modalId, geomInputId;
+                if (type === 'marker') {
+                    modalId = '#CreatePointModal';
+                    geomInputId = '#geom_point';
+                } else if (type === 'polyline') {
+                    modalId = '#CreatePolylineModal';
+                    geomInputId = '#geom_polyline';
+                } else if (type === 'polygon' || type === 'rectangle') {
+                    modalId = '#CreatePolygonModal';
+                    geomInputId = '#geom_polygon';
+                }
+
+                if (modalId && geomInputId) {
+                    $(geomInputId).val(objectGeometry);
+                    $(modalId).modal('show');
+                }
+            });
+
+            // =================================================================
+            // 4. DEKLARASI LAYER & LOGIKA MENAMPILKAN DATA DARI API
+            // =================================================================
+            var pointLayer, polylineLayer, polygonLayer;
+
+            function createModernPopup(feature, layer) {
+                const props = feature.properties;
+                const type = feature.geometry.type.toLowerCase().replace('string', '');
+                let typePlural = `${type}s`;
+                if (type === 'linestring') typePlural = 'polylines'; // Normalisasi nama
+
+                const imageSrc = props.image ? `{{ asset('storage/images') }}/${props.image}` : null;
+                const editUrl = `{{ url('/') }}/${typePlural}/${props.id}/edit`;
+                const deleteUrl = `{{ url('/') }}/${typePlural}/${props.id}`;
+
+                let iconClass = 'fa-question-circle';
+                if (type === 'point') iconClass = 'fa-map-marker-alt';
+                if (type === 'linestring') iconClass = 'fa-road';
+                if (type === 'polygon') iconClass = 'fa-draw-polygon';
+
+                let details = '';
+                if (props.length_m) details =
+                    `<div class="d-flex align-items-center text-muted small mb-3"><i class="fa-solid fa-ruler-horizontal fa-fw me-2"></i><strong>${Number(props.length_m).toFixed(2)} Meter</strong></div>`;
+                if (props.luas_hektar) details =
+                    `<div class="d-flex align-items-center text-muted small mb-1"><i class="fa-solid fa-vector-square fa-fw me-2"></i><strong>${Number(props.luas_hektar).toFixed(2)} Hectare</strong></div>`;
+
+                const popupContent = `
+                    <div class="popup-card">
+                        ${imageSrc ? `<img src="${imageSrc}" alt="Foto" class="popup-image">` : `<div class="popup-image-placeholder"><i class="fa-solid ${iconClass} fa-2x"></i></div>`}
+                        <div class="popup-content-area">
+                            <div class="popup-title">${props.name || 'No Name'}</div>
+                            ${props.description ? `<p class="popup-description">${props.description}</p>` : ''}
+                            ${details}
+                        </div>
+                        <div class="popup-footer">
+                            <div><small>Oleh: <strong>${props.user_created || 'N/A'}</strong></small></div>
+                            <div class="popup-actions d-flex align-items-center">
+                                <a href="${editUrl}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">@csrf @method('DELETE')<button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button></form>
+                            </div>
+                        </div>
+                    </div>`;
 
                 layer.bindPopup(popupContent, {
                     className: 'custom-leaflet-popup'
                 });
-                layer.bindTooltip(feature.properties.name, {
-                    permanent: false,
-                    direction: 'top',
-                    sticky: true
-                });
+                layer.bindTooltip(props.name);
             }
+
+            // Fetch Points
+            pointLayer = L.geoJson(null, {
+                pointToLayer: (f, l) => L.circleMarker(l, {
+                    radius: 6,
+                    fillColor: f.properties.color || '#E74C3C',
+                    color: '#fff',
+                    weight: 3,
+                    opacity: 1,
+                    fillOpacity: 1
+                }),
+                onEachFeature: createModernPopup
+            });
+            $.getJSON("{{ route('api.points') }}", data => pointLayer.addData(data).addTo(map));
+
+            // Fetch Polylines
+            polylineLayer = L.geoJson(null, {
+                style: f => ({
+                    color: f.properties.color || '#E74C3C',
+                    weight: 4,
+                    opacity: 0.9
+                }),
+                onEachFeature: createModernPopup
+            });
+            $.getJSON("{{ route('api.polylines') }}", data => polylineLayer.addData(data).addTo(map));
+
+            // Fetch Polygons
+            polygonLayer = L.geoJson(null, {
+                style: f => ({
+                    fillColor: f.properties.color || '#E74C3C',
+                    color: f.properties.color || '#E74C3C',
+                    weight: 3,
+                    opacity: 1,
+                    fillOpacity: 0.3
+                }),
+                onEachFeature: createModernPopup
+            });
+            $.getJSON("{{ route('api.polygons') }}", data => polygonLayer.addData(data).addTo(map));
+
+            // =================================================================
+            // 5. FUNGSIONALITAS CONTROL LAYER
+            // =================================================================
+            $('#togglePoints').on('change', function() {
+                if ($(this).is(':checked')) map.addLayer(pointLayer);
+                else map.removeLayer(pointLayer);
+            });
+
+            $('#togglePolylines').on('change', function() {
+                if ($(this).is(':checked')) map.addLayer(polylineLayer);
+                else map.removeLayer(polylineLayer);
+            });
+
+            $('#togglePolygons').on('change', function() {
+                if ($(this).is(':checked')) map.addLayer(polygonLayer);
+                else map.removeLayer(polygonLayer);
+            });
         });
-        $.getJSON("{{ route('api.points') }}", function(data) {
-            point.addData(data);
-            map.addLayer(point);
-        });
-
-        /* GeoJSON Polyline */
-        var polyline = L.geoJson(null, {
-    style: function(feature) {
-        return {
-            color: feature.properties.color || '#3498DB',
-            weight: 4,
-            opacity: 0.9
-        };
-    },
-    onEachFeature: function(feature, layer) {
-
-        const imageSrc = feature.properties.image ? `{{ asset('storage/images') }}/${feature.properties.image}` : null;
-        const routeedit = "{{ route('polylines.edit', ':id') }}".replace(':id', feature.properties.id);
-        const routedelete = "{{ route('polylines.destroy', ':id') }}".replace(':id', feature.properties.id);
-
-        const popupContent = `
-            <div class="popup-card">
-                ${imageSrc ?
-                    `<img src="${imageSrc}" alt="Foto Lokasi" class="popup-image">` :
-                    `<div class="popup-image-placeholder"><i class="fa-solid fa-road fa-2x"></i></div>`
-                }
-
-                <div class="popup-content-area">
-                    <div class="popup-title">${feature.properties.name || 'Tanpa Nama'}</div>
-                    ${feature.properties.description ?
-                        `<p class="popup-description">${feature.properties.description}</p>` : ''
-                    }
-
-                    <div class="d-flex align-items-center text-muted small mb-3">
-                        <i class="fa-solid fa-ruler-horizontal fa-fw me-2"></i>
-                        Panjang: <strong>${Number(feature.properties.length_km || 0).toFixed(2)} km</strong>
-                    </div>
-                </div>
-
-                <div class="popup-footer">
-                    <div>
-                        <small>Oleh: <strong>${feature.properties.user_created || 'N/A'}</strong></small>
-                    </div>
-                    <div class="popup-actions d-flex align-items-center">
-                        <a href="${routeedit}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <form method="POST" action="${routedelete}" onsubmit="return confirm('Anda yakin ingin menghapus polyline ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        layer.bindPopup(popupContent, {
-            className: 'custom-leaflet-popup'
-        });
-
-        layer.bindTooltip(feature.properties.name);
-    }
-});
-        $.getJSON("{{ route('api.polylines') }}", function(data) {
-            polyline.addData(data);
-            map.addLayer(polyline);
-        });
-
-        /* GeoJSON Polygon */
-        var polygon = L.geoJson(null, {
-    style: function(feature) {
-        return {
-            fillColor: feature.properties.color || '#3498DB',
-            color: feature.properties.color || '#3498DB',
-            weight: 3,
-            fillOpacity: 0.35
-        };
-    },
-    onEachFeature: function(feature, layer) {
-        const imageSrc = feature.properties.image ? `{{ asset('storage/images') }}/${feature.properties.image}` : null;
-        const routeedit = "{{ route('polygons.edit', ':id') }}".replace(':id', feature.properties.id);
-        const routedelete = "{{ route('polygons.destroy', ':id') }}".replace(':id', feature.properties.id);
-
-        const popupContent = `
-            <div class="popup-card">
-                ${imageSrc ?
-                    `<img src="${imageSrc}" alt="Foto Lokasi" class="popup-image">` :
-                    `<div class="popup-image-placeholder"><i class="fa-solid fa-draw-polygon fa-2x"></i></div>`
-                }
-
-                <div class="popup-content-area">
-                    <div class="popup-title">${feature.properties.name || 'Tanpa Nama'}</div>
-                    ${feature.properties.description ?
-                        `<p class="popup-description">${feature.properties.description}</p>` : ''
-                    }
-
-                    <div class="d-flex align-items-center text-muted small mb-1">
-                        <i class="fa-solid fa-vector-square fa-fw me-2"></i>
-                        Luas: <strong>${Number(feature.properties.luas_km2 || 0).toFixed(2)} km²</strong>
-                        / <strong>${Number(feature.properties.luas_hektar || 0).toFixed(2)} ha</strong>
-                    </div>
-                </div>
-
-                <div class="popup-footer">
-                    <div>
-                        <small>Oleh: <strong>${feature.properties.user_created || 'N/A'}</strong></small>
-                    </div>
-                    <div class="popup-actions d-flex align-items-center">
-                        <a href="${routeedit}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <form method="POST" action="${routedelete}" onsubmit="return confirm('Anda yakin ingin menghapus poligon ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        layer.bindPopup(popupContent, {
-            className: 'custom-leaflet-popup'
-        });
-
-        layer.bindTooltip(feature.properties.name);
-    }
-});
-        $.getJSON("{{ route('api.polygons') }}", function(data) {
-            polygon.addData(data);
-            map.addLayer(polygon);
-        });
-
-        /* control layer */
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.flexslider-min.js') }}"></script>
-    <script src="{{ asset('js/jquery.countTo.js') }}"></script>
-
-    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>
