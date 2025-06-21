@@ -319,7 +319,7 @@
                     <div class="layer-item">
                         <label for="toggleTitiks" class="layer-label">
                             <i class="layer-icon fa-solid fa-map-marker-alt" style="color: #FFC300;"></i>
-                            <span>Titiks</span>
+                            <span>Points</span>
                         </label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="toggleTitiks" checked>
@@ -328,7 +328,7 @@
                     <div class="layer-item">
                         <label for="toggleGariss" class="layer-label">
                             <i class="layer-icon fa-solid fa-wave-square" style="color: #FFC300;"></i>
-                            <span>Gariss</span>
+                            <span>Polylines</span>
                         </label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="toggleGariss" checked>
@@ -337,7 +337,7 @@
                     <div class="layer-item">
                         <label for="toggleAreas" class="layer-label">
                             <i class="layer-icon fa-solid fa-draw-polygon" style="color: #FFC300;"></i>
-                            <span>Areas</span>
+                            <span>Polygons</span>
                         </label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="toggleAreas" checked>
@@ -349,7 +349,7 @@
                     <div class="footer-item">
                         <label class="footer-label">See Land Use Now</label>
                         <a href="{{ route('map') }}" class="btn-footer-icon" title="See Post Mining Model">
-                            <i class="fa-solid fa-seedling"></i>
+                            <i class="fa-solid fa-mountain-sun"></i>
                         </a>
                     </div>
 

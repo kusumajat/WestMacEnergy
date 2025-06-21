@@ -780,48 +780,70 @@
             var pointLayer, polylineLayer, polygonLayer;
 
             function createModernPopup(feature, layer) {
-                const props = feature.properties;
-                const type = feature.geometry.type.toLowerCase().replace('string', '');
-                let typePlural = `${type}s`;
-                if (type === 'linestring') typePlural = 'polylines'; // Normalisasi nama
+    const props = feature.properties;
+    const geomType = feature.geometry.type.toLowerCase(); // Hasilnya: "point", "linestring", "polygon"
+    let typePlural; // Variabel kosong untuk diisi
 
-                const imageSrc = props.image ? `{{ asset('storage/images') }}/${props.image}` : null;
-                const editUrl = `{{ url('/') }}/${typePlural}/${props.id}/edit`;
-                const deleteUrl = `{{ url('/') }}/${typePlural}/${props.id}`;
+    // ====================================================================
+    // PERBAIKAN UTAMA: Logika eksplisit untuk menentukan nama route/controller
+    // Ini memastikan nama yang benar selalu digunakan.
+    // ====================================================================
+    if (geomType.includes('point')) {
+        typePlural = 'points';
+    } else if (geomType.includes('linestring')) {
+        typePlural = 'polylines'; // <-- SECARA EKSPLISIT diatur ke 'polylines'
+    } else if (geomType.includes('polygon')) {
+        typePlural = 'polygons';
+    } else {
+        // Jika tipe geometri tidak dikenali, hentikan fungsi
+        console.error("Tipe geometri tidak dikenali:", geomType);
+        return;
+    }
 
-                let iconClass = 'fa-question-circle';
-                if (type === 'point') iconClass = 'fa-map-marker-alt';
-                if (type === 'linestring') iconClass = 'fa-road';
-                if (type === 'polygon') iconClass = 'fa-draw-polygon';
+    const imageSrc = props.image ? `{{ asset('storage/images') }}/${props.image}` : null;
 
-                let details = '';
-                if (props.length_m) details =
-                    `<div class="d-flex align-items-center text-muted small mb-3"><i class="fa-solid fa-ruler-horizontal fa-fw me-2"></i><strong>${Number(props.length_m).toFixed(2)} Meter</strong></div>`;
-                if (props.luas_hektar) details =
-                    `<div class="d-flex align-items-center text-muted small mb-1"><i class="fa-solid fa-vector-square fa-fw me-2"></i><strong>${Number(props.luas_hektar).toFixed(2)} Hectare</strong></div>`;
+    // Sekarang ${typePlural} akan selalu benar (misal: /points/5 atau /polylines/2)
+    const editUrl = `{{ url('/') }}/${typePlural}/${props.id}/edit`;
+    const deleteUrl = `{{ url('/') }}/${typePlural}/${props.id}`;
 
-                const popupContent = `
-                    <div class="popup-card">
-                        ${imageSrc ? `<img src="${imageSrc}" alt="Foto" class="popup-image">` : `<div class="popup-image-placeholder"><i class="fa-solid ${iconClass} fa-2x"></i></div>`}
-                        <div class="popup-content-area">
-                            <div class="popup-title">${props.name || 'No Name'}</div>
-                            ${props.description ? `<p class="popup-description">${props.description}</p>` : ''}
-                            ${details}
-                        </div>
-                        <div class="popup-footer">
-                            <div><small>Oleh: <strong>${props.user_created || 'N/A'}</strong></small></div>
-                            <div class="popup-actions d-flex align-items-center">
-                                <a href="${editUrl}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">@csrf @method('DELETE')<button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button></form>
-                            </div>
-                        </div>
-                    </div>`;
+    // Menentukan ikon berdasarkan typePlural yang sudah benar
+    let iconClass = 'fa-question-circle';
+    if (typePlural === 'points') iconClass = 'fa-map-marker-alt';
+    if (typePlural === 'polylines') iconClass = 'fa-road'; // Ikon jalan lebih cocok untuk polyline
+    if (typePlural === 'polygons') iconClass = 'fa-draw-polygon';
 
-                layer.bindPopup(popupContent, {
-                    className: 'custom-leaflet-popup'
-                });
-                layer.bindTooltip(props.name);
-            }
+    let details = '';
+    if (props.length_m) details =
+        `<div class="d-flex align-items-center text-muted small mb-3"><i class="fa-solid fa-ruler-horizontal fa-fw me-2"></i><strong>${Number(props.length_m).toFixed(2)} Meter</strong></div>`;
+    if (props.luas_hektar) details =
+        `<div class="d-flex align-items-center text-muted small mb-1"><i class="fa-solid fa-vector-square fa-fw me-2"></i><strong>${Number(props.luas_hektar).toFixed(2)} Hectare</strong></div>`;
+
+    const popupContent = `
+        <div class="popup-card">
+            ${imageSrc ? `<img src="${imageSrc}" alt="Foto" class="popup-image">` : `<div class="popup-image-placeholder"><i class="fa-solid ${iconClass} fa-2x"></i></div>`}
+            <div class="popup-content-area">
+                <div class="popup-title">${props.name || 'No Name'}</div>
+                ${props.description ? `<p class="popup-description">${props.description}</p>` : ''}
+                ${details}
+            </div>
+            <div class="popup-footer">
+                <div><small>Oleh: <strong>${props.user_created || 'N/A'}</strong></small></div>
+                <div class="popup-actions d-flex align-items-center">
+                    <a href="${editUrl}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>`;
+
+    layer.bindPopup(popupContent, {
+        className: 'custom-leaflet-popup'
+    });
+    layer.bindTooltip(props.name);
+}
 
             // Fetch Points
             pointLayer = L.geoJson(null, {
