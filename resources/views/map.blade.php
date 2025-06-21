@@ -50,7 +50,7 @@
             border-color: #000;
             border-width: 3px;
             transform: scale(1.1);
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         .color-selection {
@@ -75,6 +75,82 @@
             height: 20px;
             border-radius: 50%;
             border: 2px solid #ccc;
+        }
+
+        .custom-leaflet-popup .leaflet-popup-content-wrapper {
+            background: #ffffff;
+            padding: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .custom-leaflet-popup .leaflet-popup-content {
+            margin: 0 !important;
+            min-width: 280px;
+            /* Lebar minimum popup */
+        }
+
+        .custom-leaflet-popup .leaflet-popup-tip {
+            background: #ffffff;
+        }
+
+        /* Style untuk kartu popup */
+        .popup-card {
+            width: 100%;
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            /* Memastikan gambar terpotong rapi */
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .popup-image-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .popup-content-area {
+            padding: 1rem;
+        }
+
+        .popup-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
+            color: #212529;
+        }
+
+        .popup-description {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .popup-footer {
+            padding: 0.75rem 1rem;
+            background-color: #f8f9fa;
+            font-size: 0.8rem;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .popup-actions form {
+            margin-bottom: 0;
+            /* Menghilangkan margin bawah default dari form */
         }
     </style>
     <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
@@ -122,23 +198,36 @@
                                 <div class="mb-3">
                                     <label class="form-label">Color</label>
                                     <div class="color-selection">
-                                        <div class="color-option" data-color="#FF0000" style="background-color: #FF0000;" title="Red"></div>
-                                        <div class="color-option" data-color="#00FF00" style="background-color: #00FF00;" title="Green"></div>
-                                        <div class="color-option" data-color="#0000FF" style="background-color: #0000FF;" title="Blue"></div>
-                                        <div class="color-option" data-color="#FFFF00" style="background-color: #FFFF00;" title="Yellow"></div>
-                                        <div class="color-option" data-color="#FF00FF" style="background-color: #FF00FF;" title="Magenta"></div>
-                                        <div class="color-option" data-color="#00FFFF" style="background-color: #00FFFF;" title="Cyan"></div>
-                                        <div class="color-option" data-color="#FFA500" style="background-color: #FFA500;" title="Orange"></div>
-                                        <div class="color-option" data-color="#800080" style="background-color: #800080;" title="Purple"></div>
-                                        <div class="color-option" data-color="#FFC0CB" style="background-color: #FFC0CB;" title="Pink"></div>
-                                        <div class="color-option" data-color="#A52A2A" style="background-color: #A52A2A;" title="Brown"></div>
-                                        <div class="color-option" data-color="#808080" style="background-color: #808080;" title="Gray"></div>
-                                        <div class="color-option" data-color="#000000" style="background-color: #000000;" title="Black"></div>
+                                        <div class="color-option" data-color="#FF0000"
+                                            style="background-color: #FF0000;" title="Red"></div>
+                                        <div class="color-option" data-color="#00FF00"
+                                            style="background-color: #00FF00;" title="Green"></div>
+                                        <div class="color-option" data-color="#0000FF"
+                                            style="background-color: #0000FF;" title="Blue"></div>
+                                        <div class="color-option" data-color="#FFFF00"
+                                            style="background-color: #FFFF00;" title="Yellow"></div>
+                                        <div class="color-option" data-color="#FF00FF"
+                                            style="background-color: #FF00FF;" title="Magenta"></div>
+                                        <div class="color-option" data-color="#00FFFF"
+                                            style="background-color: #00FFFF;" title="Cyan"></div>
+                                        <div class="color-option" data-color="#FFA500"
+                                            style="background-color: #FFA500;" title="Orange"></div>
+                                        <div class="color-option" data-color="#800080"
+                                            style="background-color: #800080;" title="Purple"></div>
+                                        <div class="color-option" data-color="#FFC0CB"
+                                            style="background-color: #FFC0CB;" title="Pink"></div>
+                                        <div class="color-option" data-color="#A52A2A"
+                                            style="background-color: #A52A2A;" title="Brown"></div>
+                                        <div class="color-option" data-color="#808080"
+                                            style="background-color: #808080;" title="Gray"></div>
+                                        <div class="color-option" data-color="#000000"
+                                            style="background-color: #000000;" title="Black"></div>
                                     </div>
                                     <input type="hidden" id="color_point" name="color" value="#FF0000">
                                     <div class="color-preview">
                                         <span>Selected Color:</span>
-                                        <div class="color-preview-circle" id="preview-color-point" style="background-color: #FF0000;"></div>
+                                        <div class="color-preview-circle" id="preview-color-point"
+                                            style="background-color: #FF0000;"></div>
                                         <span id="color-name-point">Red</span>
                                     </div>
                                 </div>
@@ -152,7 +241,8 @@
                                     width="400">
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </form>
@@ -193,23 +283,36 @@
                                 <div class="mb-3">
                                     <label class="form-label">Color</label>
                                     <div class="color-selection">
-                                        <div class="color-option" data-color="#FF0000" style="background-color: #FF0000;" title="Red"></div>
-                                        <div class="color-option" data-color="#00FF00" style="background-color: #00FF00;" title="Green"></div>
-                                        <div class="color-option" data-color="#0000FF" style="background-color: #0000FF;" title="Blue"></div>
-                                        <div class="color-option" data-color="#FFFF00" style="background-color: #FFFF00;" title="Yellow"></div>
-                                        <div class="color-option" data-color="#FF00FF" style="background-color: #FF00FF;" title="Magenta"></div>
-                                        <div class="color-option" data-color="#00FFFF" style="background-color: #00FFFF;" title="Cyan"></div>
-                                        <div class="color-option" data-color="#FFA500" style="background-color: #FFA500;" title="Orange"></div>
-                                        <div class="color-option" data-color="#800080" style="background-color: #800080;" title="Purple"></div>
-                                        <div class="color-option" data-color="#FFC0CB" style="background-color: #FFC0CB;" title="Pink"></div>
-                                        <div class="color-option" data-color="#A52A2A" style="background-color: #A52A2A;" title="Brown"></div>
-                                        <div class="color-option" data-color="#808080" style="background-color: #808080;" title="Gray"></div>
-                                        <div class="color-option" data-color="#000000" style="background-color: #000000;" title="Black"></div>
+                                        <div class="color-option" data-color="#FF0000"
+                                            style="background-color: #FF0000;" title="Red"></div>
+                                        <div class="color-option" data-color="#00FF00"
+                                            style="background-color: #00FF00;" title="Green"></div>
+                                        <div class="color-option" data-color="#0000FF"
+                                            style="background-color: #0000FF;" title="Blue"></div>
+                                        <div class="color-option" data-color="#FFFF00"
+                                            style="background-color: #FFFF00;" title="Yellow"></div>
+                                        <div class="color-option" data-color="#FF00FF"
+                                            style="background-color: #FF00FF;" title="Magenta"></div>
+                                        <div class="color-option" data-color="#00FFFF"
+                                            style="background-color: #00FFFF;" title="Cyan"></div>
+                                        <div class="color-option" data-color="#FFA500"
+                                            style="background-color: #FFA500;" title="Orange"></div>
+                                        <div class="color-option" data-color="#800080"
+                                            style="background-color: #800080;" title="Purple"></div>
+                                        <div class="color-option" data-color="#FFC0CB"
+                                            style="background-color: #FFC0CB;" title="Pink"></div>
+                                        <div class="color-option" data-color="#A52A2A"
+                                            style="background-color: #A52A2A;" title="Brown"></div>
+                                        <div class="color-option" data-color="#808080"
+                                            style="background-color: #808080;" title="Gray"></div>
+                                        <div class="color-option" data-color="#000000"
+                                            style="background-color: #000000;" title="Black"></div>
                                     </div>
                                     <input type="hidden" id="color_polyline" name="color" value="#FF0000">
                                     <div class="color-preview">
                                         <span>Selected Color:</span>
-                                        <div class="color-preview-circle" id="preview-color-polyline" style="background-color: #FF0000;"></div>
+                                        <div class="color-preview-circle" id="preview-color-polyline"
+                                            style="background-color: #FF0000;"></div>
                                         <span id="color-name-polyline">Red</span>
                                     </div>
                                 </div>
@@ -265,23 +368,36 @@
                                 <div class="mb-3">
                                     <label class="form-label">Color</label>
                                     <div class="color-selection">
-                                        <div class="color-option" data-color="#FF0000" style="background-color: #FF0000;" title="Red"></div>
-                                        <div class="color-option" data-color="#00FF00" style="background-color: #00FF00;" title="Green"></div>
-                                        <div class="color-option" data-color="#0000FF" style="background-color: #0000FF;" title="Blue"></div>
-                                        <div class="color-option" data-color="#FFFF00" style="background-color: #FFFF00;" title="Yellow"></div>
-                                        <div class="color-option" data-color="#FF00FF" style="background-color: #FF00FF;" title="Magenta"></div>
-                                        <div class="color-option" data-color="#00FFFF" style="background-color: #00FFFF;" title="Cyan"></div>
-                                        <div class="color-option" data-color="#FFA500" style="background-color: #FFA500;" title="Orange"></div>
-                                        <div class="color-option" data-color="#800080" style="background-color: #800080;" title="Purple"></div>
-                                        <div class="color-option" data-color="#FFC0CB" style="background-color: #FFC0CB;" title="Pink"></div>
-                                        <div class="color-option" data-color="#A52A2A" style="background-color: #A52A2A;" title="Brown"></div>
-                                        <div class="color-option" data-color="#808080" style="background-color: #808080;" title="Gray"></div>
-                                        <div class="color-option" data-color="#000000" style="background-color: #000000;" title="Black"></div>
+                                        <div class="color-option" data-color="#FF0000"
+                                            style="background-color: #FF0000;" title="Red"></div>
+                                        <div class="color-option" data-color="#00FF00"
+                                            style="background-color: #00FF00;" title="Green"></div>
+                                        <div class="color-option" data-color="#0000FF"
+                                            style="background-color: #0000FF;" title="Blue"></div>
+                                        <div class="color-option" data-color="#FFFF00"
+                                            style="background-color: #FFFF00;" title="Yellow"></div>
+                                        <div class="color-option" data-color="#FF00FF"
+                                            style="background-color: #FF00FF;" title="Magenta"></div>
+                                        <div class="color-option" data-color="#00FFFF"
+                                            style="background-color: #00FFFF;" title="Cyan"></div>
+                                        <div class="color-option" data-color="#FFA500"
+                                            style="background-color: #FFA500;" title="Orange"></div>
+                                        <div class="color-option" data-color="#800080"
+                                            style="background-color: #800080;" title="Purple"></div>
+                                        <div class="color-option" data-color="#FFC0CB"
+                                            style="background-color: #FFC0CB;" title="Pink"></div>
+                                        <div class="color-option" data-color="#A52A2A"
+                                            style="background-color: #A52A2A;" title="Brown"></div>
+                                        <div class="color-option" data-color="#808080"
+                                            style="background-color: #808080;" title="Gray"></div>
+                                        <div class="color-option" data-color="#000000"
+                                            style="background-color: #000000;" title="Black"></div>
                                     </div>
                                     <input type="hidden" id="color_polygon" name="color" value="#FF0000">
                                     <div class="color-preview">
                                         <span>Selected Color:</span>
-                                        <div class="color-preview-circle" id="preview-color-polygon" style="background-color: #FF0000;"></div>
+                                        <div class="color-preview-circle" id="preview-color-polygon"
+                                            style="background-color: #FF0000;"></div>
                                         <span id="color-name-polygon">Red</span>
                                     </div>
                                 </div>
@@ -426,46 +542,66 @@
         /* GeoJSON Point */
         var point = L.geoJson(null, {
             pointToLayer: function(feature, latlng) {
+                // Opsi visual untuk setiap titik (marker)
                 return L.circleMarker(latlng, {
-                    radius: 8,
-                    fillColor: feature.properties.color || '#FF0000',
-                    color: feature.properties.color || '#FF0000',
+                    radius: 6,
+                    fillColor: feature.properties.color || '#3498DB',
+                    color: '#ffffff',
                     weight: 2,
                     opacity: 1,
-                    fillOpacity: 0.8
+                    fillOpacity: 1
                 });
             },
             onEachFeature: function(feature, layer) {
-                var routedelete = "{{ route('points.destroy', ':id') }}";
-                routedelete = routedelete.replace(':id', feature.properties.id);
+                // === HTML BARU UNTUK TAMPILAN POPUP MINIMALIS ===
+                const imageSrc = feature.properties.image ?
+                    `{{ asset('storage/images') }}/${feature.properties.image}` : null;
+                const routeedit = "{{ route('points.edit', ':id') }}".replace(':id', feature.properties.id);
+                const routedelete = "{{ route('points.destroy', ':id') }}".replace(':id', feature.properties
+                    .id);
 
-                var routeedit = "{{ route('points.edit', ':id') }}";
-                routeedit = routeedit.replace(':id', feature.properties.id);
+                const popupContent = `
+            <div class="popup-card">
+                ${imageSrc ?
+                    `<img src="${imageSrc}" alt="Foto Lokasi" class="popup-image">` :
+                    `<div class="popup-image-placeholder"><i class="fa-solid fa-camera fa-2x"></i></div>`
+                }
 
-                var popupContent =
-                    "Nama: " + feature.properties.name + "<br>" +
-                    "Deskripsi: " + feature.properties.description + "<br>" +
-                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image +
-                    "' width='200' alt=''>" + "<br>" +
-                    "<small>Dibuat oleh <strong>" + feature.properties.user_created + "</strong> <br>" +
+                <div class="popup-content-area">
+                    <div class="popup-title">${feature.properties.name || 'Tanpa Nama'}</div>
+                    ${feature.properties.description ?
+                        `<p class="popup-description">${feature.properties.description}</p>` : ''
+                    }
+                </div>
 
-                    "<div class='d-flex justify-content-between mt-4'>" +
-                    "<a href='" + routeedit +
-                    "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
-                    "<form method='POST' action='" + routedelete + "'>" +
-                    '@csrf' + '@method('DELETE')' +
-                    "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Point?`)'><i class='fa-regular fa-trash-can'></i> Delete</button>" +
-                    "</form>" +
-                    "</div>";
-                layer.on({
-                    click: function(e) {
-                        point.bindPopup(popupContent);
-                    },
-                    mouseover: function(e) {
-                        point.bindTooltip(feature.properties.kab_kota);
-                    },
+                <div class="popup-footer">
+                    <div>
+                        <small>Oleh: <strong>${feature.properties.user_created || 'N/A'}</strong></small>
+                    </div>
+                    <div class="popup-actions d-flex align-items-center">
+                        <a href="${routeedit}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <form method="POST" action="${routedelete}" onsubmit="return confirm('Anda yakin ingin menghapus titik ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `;
+
+                // Mengikat popup ke layer dengan class kustom
+                layer.bindPopup(popupContent, {
+                    className: 'custom-leaflet-popup' // Ini penting untuk menerapkan CSS kustom
                 });
-            },
+
+                // Tooltip saat mouse hover (tetap sama)
+                layer.bindTooltip(feature.properties.name, {
+                    permanent: false,
+                    direction: 'top',
+                    sticky: true
+                });
+            }
         });
         $.getJSON("{{ route('api.points') }}", function(data) {
             point.addData(data);
@@ -474,44 +610,63 @@
 
         /* GeoJSON Polyline */
         var polyline = L.geoJson(null, {
-            style: function(feature) {
-                return {
-                    color: feature.properties.color || '#FF0000',
-                    weight: 4,
-                    opacity: 0.8
-                };
-            },
-            onEachFeature: function(feature, layer) {
-                var routedelete = "{{ route('polylines.destroy', ':id') }}";
-                routedelete = routedelete.replace(':id', feature.properties.id);
-                var routeedit = "{{ route('polylines.edit', ':id') }}";
-                routeedit = routeedit.replace(':id', feature.properties.id);
+    style: function(feature) {
+        return {
+            color: feature.properties.color || '#3498DB',
+            weight: 4,
+            opacity: 0.9
+        };
+    },
+    onEachFeature: function(feature, layer) {
 
-                var popupContent =
-                    "Nama: " + feature.properties.name + "<br>" +
-                    "Deskripsi: " + feature.properties.description + "<br>" +
-                    "Luas (km): " + Number(feature.properties.length_km).toFixed(2) + "<br>" +
-                    "<img src='{{ asset(path: 'storage/images') }}/" + feature.properties.image +
-                    "' width='200' alt=''>" + "<br>" +
-                    "<small>Dibuat oleh <strong>" + feature.properties.user_created + "</strong> <br>" +
-                    "<div class='d-flex justify-content-between mt-4'>" +
-                    "<a href='" + routeedit +
-                    "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
-                    "<form method='POST' action='" + routedelete + "'>" +
-                    '@csrf' + '@method('DELETE')' +
-                    "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Polyline?`)'><i class='fa-regular fa-trash-can'></i> Delete</button>" +
-                    "</form>" +
-                    "</div>";
-                layer.on({
-                    click: function(e) {
-                        polyline.bindPopup(popupContent);
-                    },
-                    mouseover: function(e) {
-                        polyline.bindTooltip(feature.properties.kab_kota);
-                    },
-                });
-            },
+        const imageSrc = feature.properties.image ? `{{ asset('storage/images') }}/${feature.properties.image}` : null;
+        const routeedit = "{{ route('polylines.edit', ':id') }}".replace(':id', feature.properties.id);
+        const routedelete = "{{ route('polylines.destroy', ':id') }}".replace(':id', feature.properties.id);
+
+        const popupContent = `
+            <div class="popup-card">
+                ${imageSrc ?
+                    `<img src="${imageSrc}" alt="Foto Lokasi" class="popup-image">` :
+                    `<div class="popup-image-placeholder"><i class="fa-solid fa-road fa-2x"></i></div>`
+                }
+
+                <div class="popup-content-area">
+                    <div class="popup-title">${feature.properties.name || 'Tanpa Nama'}</div>
+                    ${feature.properties.description ?
+                        `<p class="popup-description">${feature.properties.description}</p>` : ''
+                    }
+
+                    <div class="d-flex align-items-center text-muted small mb-3">
+                        <i class="fa-solid fa-ruler-horizontal fa-fw me-2"></i>
+                        Panjang: <strong>${Number(feature.properties.length_km || 0).toFixed(2)} km</strong>
+                    </div>
+                </div>
+
+                <div class="popup-footer">
+                    <div>
+                        <small>Oleh: <strong>${feature.properties.user_created || 'N/A'}</strong></small>
+                    </div>
+                    <div class="popup-actions d-flex align-items-center">
+                        <a href="${routeedit}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <form method="POST" action="${routedelete}" onsubmit="return confirm('Anda yakin ingin menghapus polyline ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Mengikat popup ke layer dengan class kustom
+        layer.bindPopup(popupContent, {
+            className: 'custom-leaflet-popup'
         });
+
+        // Tooltip saat mouse hover
+        layer.bindTooltip(feature.properties.name);
+    }
+});
         $.getJSON("{{ route('api.polylines') }}", function(data) {
             polyline.addData(data);
             map.addLayer(polyline);
@@ -519,47 +674,66 @@
 
         /* GeoJSON Polygon */
         var polygon = L.geoJson(null, {
-            style: function(feature) {
-                return {
-                    fillColor: feature.properties.color || '#FF0000',
-                    color: feature.properties.color || '#FF0000',
-                    weight: 2,
-                    opacity: 1,
-                    fillOpacity: 0.7
-                };
-            },
-            onEachFeature: function(feature, layer) {
-                var routedelete = "{{ route('polygons.destroy', ':id') }}";
-                routedelete = routedelete.replace(':id', feature.properties.id);
-                var routeedit = "{{ route('polygons.edit', ':id') }}";
-                routeedit = routeedit.replace(':id', feature.properties.id);
+    style: function(feature) {
+        // Style untuk area polygon
+        return {
+            fillColor: feature.properties.color || '#3498DB', // Warna isian, default ungu
+            color: feature.properties.color || '#3498DB', // Warna garis tepi putih
+            weight: 3,
+            fillOpacity: 0.35
+        };
+    },
+    onEachFeature: function(feature, layer) {
+        // === HTML BARU UNTUK TAMPILAN POPUP MINIMALIS ===
+        const imageSrc = feature.properties.image ? `{{ asset('storage/images') }}/${feature.properties.image}` : null;
+        const routeedit = "{{ route('polygons.edit', ':id') }}".replace(':id', feature.properties.id);
+        const routedelete = "{{ route('polygons.destroy', ':id') }}".replace(':id', feature.properties.id);
 
-                var popupContent =
-                    "Nama: " + feature.properties.name + "<br>" +
-                    "Deskripsi: " + feature.properties.description + "<br>" +
-                    "Luas (km2): " + Number(feature.properties.luas_km2).toFixed(2) + "<br>" +
-                    "Luas (ha): " + Number(feature.properties.luas_hektar).toFixed(2) + "<br>" +
-                    "<img src='{{ asset(path: 'storage/images') }}/" + feature.properties.image +
-                    "' width='200' alt=''>" + "<br>" +
-                    "<small>Dibuat oleh <strong>" + feature.properties.user_created + "</strong> <br>" +
-                    "<div class='d-flex justify-content-between mt-4'>" +
-                    "<a href='" + routeedit +
-                    "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
-                    "<form method='POST' action='" + routedelete + "'>" +
-                    '@csrf' + '@method('DELETE')' +
-                    "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Polygon?`)'><i class='fa-regular fa-trash-can'></i> Delete</button>" +
-                    "</form>" +
-                    "</div>";
-                layer.on({
-                    click: function(e) {
-                        polygon.bindPopup(popupContent);
-                    },
-                    mouseover: function(e) {
-                        polygon.bindTooltip(feature.properties.kab_kota);
-                    },
-                });
-            },
+        const popupContent = `
+            <div class="popup-card">
+                ${imageSrc ?
+                    `<img src="${imageSrc}" alt="Foto Lokasi" class="popup-image">` :
+                    `<div class="popup-image-placeholder"><i class="fa-solid fa-draw-polygon fa-2x"></i></div>`
+                }
+
+                <div class="popup-content-area">
+                    <div class="popup-title">${feature.properties.name || 'Tanpa Nama'}</div>
+                    ${feature.properties.description ?
+                        `<p class="popup-description">${feature.properties.description}</p>` : ''
+                    }
+
+                    <div class="d-flex align-items-center text-muted small mb-1">
+                        <i class="fa-solid fa-vector-square fa-fw me-2"></i>
+                        Luas: <strong>${Number(feature.properties.luas_km2 || 0).toFixed(2)} km²</strong>
+                        / <strong>${Number(feature.properties.luas_hektar || 0).toFixed(2)} ha</strong>
+                    </div>
+                </div>
+
+                <div class="popup-footer">
+                    <div>
+                        <small>Oleh: <strong>${feature.properties.user_created || 'N/A'}</strong></small>
+                    </div>
+                    <div class="popup-actions d-flex align-items-center">
+                        <a href="${routeedit}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <form method="POST" action="${routedelete}" onsubmit="return confirm('Anda yakin ingin menghapus poligon ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Mengikat popup ke layer dengan class kustom
+        layer.bindPopup(popupContent, {
+            className: 'custom-leaflet-popup'
         });
+
+        // Tooltip saat mouse hover
+        layer.bindTooltip(feature.properties.name);
+    }
+});
         $.getJSON("{{ route('api.polygons') }}", function(data) {
             polygon.addData(data);
             map.addLayer(polygon);
