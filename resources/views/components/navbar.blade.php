@@ -1,15 +1,12 @@
 <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 
 <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
-    {{-- Logo atau Judul Situs --}}
     <h1 id="colorlib-logo">
         <a href="{{ route('home') }}"><i class="fa-solid fa-earth-americas"></i> {{ $title ?? 'Balay' }}</a>
     </h1>
 
-    {{-- Menu Navigasi Utama --}}
     <nav id="colorlib-main-menu" role="navigation">
         <ul>
-            {{-- Link dari aplikasi Laravel Anda --}}
             <li class="{{ request()->routeIs('home') ? 'colorlib-active' : '' }}">
                 <a href="{{ route('home') }}">Home</a>
             </li>
@@ -24,11 +21,14 @@
                 <a href="{{ route('table') }}">Table</a>
             </li>
 
-            @auth
-                <li class="{{ request()->routeIs('api.points') ? 'colorlib-active' : '' }}"><a href="{{ route('api.points') }}" target="_blank">Data Points</a></li>
-                <li class="{{ request()->routeIs('api.polylines') ? 'colorlib-active' : '' }}"><a href="{{ route('api.polylines') }}" target="_blank">Data Polylines</a></li>
-                <li class="{{ request()->routeIs('api.polygons') ? 'colorlib-active' : '' }}"><a href="{{ route('api.polygons') }}" target="_blank">Data Polygons</a></li>
-            @endauth
+            @if (auth()->user() && auth()->user()->role === 'admin')
+                <li class="{{ request()->routeIs('api.points') ? 'colorlib-active' : '' }}"><a
+                        href="{{ route('api.points') }}" target="_blank">Data Points</a></li>
+                <li class="{{ request()->routeIs('api.polylines') ? 'colorlib-active' : '' }}"><a
+                        href="{{ route('api.polylines') }}" target="_blank">Data Polylines</a></li>
+                <li class="{{ request()->routeIs('api.polygons') ? 'colorlib-active' : '' }}"><a
+                        href="{{ route('api.polygons') }}" target="_blank">Data Polygons</a></li>
+            @endif
 
         </ul>
     </nav>
@@ -37,9 +37,11 @@
         <ul>
             {{-- Autentikasi Pengguna --}}
             @guest
-                {{-- Link Login untuk tamu --}}
                 <li class="{{ request()->routeIs('login') ? 'colorlib-active' : '' }}">
                     <a href="{{ route('login') }}"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                </li>
+                <li class="{{ request()->routeIs('register') ? 'colorlib-active' : '' }}">
+                    <a href="{{ route('register') }}"><i class="fa-solid fa-user-plus"></i> Register</a>
                 </li>
             @else
                 <li>
@@ -61,9 +63,11 @@
         </ul><br>
 
         <p><small>&copy;
-						Copyright &copy;
-						<script>document.write(new Date().getFullYear());</script> <br>by <a href="https://colorlib.com" target="_blank">Risma Kusumajati</a>
-					</small></p>
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script> <br>by <a href="https://colorlib.com" target="_blank">Risma Kusumajati</a>
+            </small></p>
         <ul>
             <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>

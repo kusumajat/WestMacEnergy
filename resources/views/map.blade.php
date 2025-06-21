@@ -723,7 +723,9 @@
                 edit: false
             });
 
-            map.addControl(drawControl);
+            @if (auth()->user() && auth()->user()->role === 'admin')
+                map.addControl(drawControl);
+            @endif
 
             map.on('draw:created', function(e) {
                 var type = e.layerType,
@@ -893,14 +895,17 @@
             </div>
             <div class="popup-footer">
                 <div><small>Oleh: <strong>${props.user_created || 'N/A'}</strong></small></div>
+                @if (auth()->user() && auth()->user()->role === 'admin')
                 <div class="popup-actions d-flex align-items-center">
                     <a href="${editUrl}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Anda yakin ingin menghapus data ini?');">
+                    <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Are you sure want to delete this data?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-light text-danger" title="Hapus"><i class="fa-regular fa-trash-can"></i></button>
+                        @yield('title')
+                        <button type="submit" class="btn btn-sm btn-light text-danger" title="Delete"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                 </div>
+                @endif
             </div>
         </div>`;
 
