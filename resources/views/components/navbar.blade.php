@@ -66,13 +66,13 @@
                 Copyright &copy;
                 <script>
                     document.write(new Date().getFullYear());
-                </script> <br>by <a href="https://colorlib.com" target="_blank">Risma Kusumajati</a>
+                </script> <br>by <a href="https://www.linkedin.com/in/risma-kusumajati/" target="_blank">Risma Kusumajati</a>
             </small></p>
         <ul>
             <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-            <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+            <li><a href="https://github.com/kusumajat"><i class="fa-brands fa-github"></i></a></li>
+            <li><a href="https://www.instagram.com/kusumaj_ris?igsh=MWtxN2tnN3dnNTd6YQ=="><i class="fa-brands fa-instagram"></i></a></li>
+            <li><a href="https://www.linkedin.com/in/risma-kusumajati/"><i class="fa-brands fa-linkedin"></i></a></li>
         </ul>
     </div>
 </aside>
