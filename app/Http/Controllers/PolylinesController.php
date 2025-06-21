@@ -64,6 +64,7 @@ class PolylinesController extends Controller
             'geom' => $request->geom_polyline,
             'name' => $request->name,
             'description' => $request->description,
+            'color' => $request->color,
             'image' => $name_image,
             'user_id' => auth()->user()->id
         ];
@@ -147,6 +148,7 @@ class PolylinesController extends Controller
             'name' => $request->name,
             'geom' => $request->geom_polyline,
             'description' => $request->description,
+            'color' => $request->color,
             'image' => $name_image,
         ];
 

@@ -69,6 +69,7 @@ class PointsController extends Controller
             'geom' => $request->geom_point,
             'name' => $request->name,
             'description' => $request->description,
+            'color' => $request->color,
             'image' => $name_image,
             'user_id' => auth()->user()->id
         ];
@@ -153,6 +154,7 @@ class PointsController extends Controller
             'name' => $request->name,
             'geom' => $request->geom_point,
             'description' => $request->description,
+            'color' => $request->color,
             'image' => $name_image,
         ];
 

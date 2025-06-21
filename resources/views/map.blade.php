@@ -29,6 +29,53 @@
             width: 100%;
             height: calc(100vh - 56px);
         }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            cursor: pointer;
+            display: inline-block;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+            border-color: #000;
+        }
+
+        .color-option.selected {
+            border-color: #000;
+            border-width: 3px;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .color-selection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .color-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .color-preview-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
     </style>
     <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
 </head>
@@ -70,6 +117,30 @@
                                 <div class="mb-3">
                                     <label for="geom_point" class="form-label">Geometry</label>
                                     <textarea class="form-control" id="geom_point" name="geom_point" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Color</label>
+                                    <div class="color-selection">
+                                        <div class="color-option" data-color="#FF0000" style="background-color: #FF0000;" title="Red"></div>
+                                        <div class="color-option" data-color="#00FF00" style="background-color: #00FF00;" title="Green"></div>
+                                        <div class="color-option" data-color="#0000FF" style="background-color: #0000FF;" title="Blue"></div>
+                                        <div class="color-option" data-color="#FFFF00" style="background-color: #FFFF00;" title="Yellow"></div>
+                                        <div class="color-option" data-color="#FF00FF" style="background-color: #FF00FF;" title="Magenta"></div>
+                                        <div class="color-option" data-color="#00FFFF" style="background-color: #00FFFF;" title="Cyan"></div>
+                                        <div class="color-option" data-color="#FFA500" style="background-color: #FFA500;" title="Orange"></div>
+                                        <div class="color-option" data-color="#800080" style="background-color: #800080;" title="Purple"></div>
+                                        <div class="color-option" data-color="#FFC0CB" style="background-color: #FFC0CB;" title="Pink"></div>
+                                        <div class="color-option" data-color="#A52A2A" style="background-color: #A52A2A;" title="Brown"></div>
+                                        <div class="color-option" data-color="#808080" style="background-color: #808080;" title="Gray"></div>
+                                        <div class="color-option" data-color="#000000" style="background-color: #000000;" title="Black"></div>
+                                    </div>
+                                    <input type="hidden" id="color_point" name="color" value="#FF0000">
+                                    <div class="color-preview">
+                                        <span>Selected Color:</span>
+                                        <div class="color-preview-circle" id="preview-color-point" style="background-color: #FF0000;"></div>
+                                        <span id="color-name-point">Red</span>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
@@ -120,6 +191,30 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label class="form-label">Color</label>
+                                    <div class="color-selection">
+                                        <div class="color-option" data-color="#FF0000" style="background-color: #FF0000;" title="Red"></div>
+                                        <div class="color-option" data-color="#00FF00" style="background-color: #00FF00;" title="Green"></div>
+                                        <div class="color-option" data-color="#0000FF" style="background-color: #0000FF;" title="Blue"></div>
+                                        <div class="color-option" data-color="#FFFF00" style="background-color: #FFFF00;" title="Yellow"></div>
+                                        <div class="color-option" data-color="#FF00FF" style="background-color: #FF00FF;" title="Magenta"></div>
+                                        <div class="color-option" data-color="#00FFFF" style="background-color: #00FFFF;" title="Cyan"></div>
+                                        <div class="color-option" data-color="#FFA500" style="background-color: #FFA500;" title="Orange"></div>
+                                        <div class="color-option" data-color="#800080" style="background-color: #800080;" title="Purple"></div>
+                                        <div class="color-option" data-color="#FFC0CB" style="background-color: #FFC0CB;" title="Pink"></div>
+                                        <div class="color-option" data-color="#A52A2A" style="background-color: #A52A2A;" title="Brown"></div>
+                                        <div class="color-option" data-color="#808080" style="background-color: #808080;" title="Gray"></div>
+                                        <div class="color-option" data-color="#000000" style="background-color: #000000;" title="Black"></div>
+                                    </div>
+                                    <input type="hidden" id="color_polyline" name="color" value="#FF0000">
+                                    <div class="color-preview">
+                                        <span>Selected Color:</span>
+                                        <div class="color-preview-circle" id="preview-color-polyline" style="background-color: #FF0000;"></div>
+                                        <span id="color-name-polyline">Red</span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="image" class="form-label">Photo</label>
                                     <input type="file" class="form-control" id="image_polyline" name="image"
                                         onchange="document.getElementById('preview-image-polyline').src = window.URL.createObjectURL(this.files[0])">
@@ -137,7 +232,7 @@
                 </div>
             </div>
 
-            <!-- Modal Polyligon-->
+            <!-- Modal Polygon-->
             <div class="modal fade" id="CreatePolygonModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -165,6 +260,30 @@
                                 <div class="mb-3">
                                     <label for="geom_polygon" class="form-label">Geometry</label>
                                     <textarea class="form-control" id="geom_polygon" name="geom_polygon" rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Color</label>
+                                    <div class="color-selection">
+                                        <div class="color-option" data-color="#FF0000" style="background-color: #FF0000;" title="Red"></div>
+                                        <div class="color-option" data-color="#00FF00" style="background-color: #00FF00;" title="Green"></div>
+                                        <div class="color-option" data-color="#0000FF" style="background-color: #0000FF;" title="Blue"></div>
+                                        <div class="color-option" data-color="#FFFF00" style="background-color: #FFFF00;" title="Yellow"></div>
+                                        <div class="color-option" data-color="#FF00FF" style="background-color: #FF00FF;" title="Magenta"></div>
+                                        <div class="color-option" data-color="#00FFFF" style="background-color: #00FFFF;" title="Cyan"></div>
+                                        <div class="color-option" data-color="#FFA500" style="background-color: #FFA500;" title="Orange"></div>
+                                        <div class="color-option" data-color="#800080" style="background-color: #800080;" title="Purple"></div>
+                                        <div class="color-option" data-color="#FFC0CB" style="background-color: #FFC0CB;" title="Pink"></div>
+                                        <div class="color-option" data-color="#A52A2A" style="background-color: #A52A2A;" title="Brown"></div>
+                                        <div class="color-option" data-color="#808080" style="background-color: #808080;" title="Gray"></div>
+                                        <div class="color-option" data-color="#000000" style="background-color: #000000;" title="Black"></div>
+                                    </div>
+                                    <input type="hidden" id="color_polygon" name="color" value="#FF0000">
+                                    <div class="color-preview">
+                                        <span>Selected Color:</span>
+                                        <div class="color-preview-circle" id="preview-color-polygon" style="background-color: #FF0000;"></div>
+                                        <span id="color-name-polygon">Red</span>
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
@@ -202,7 +321,55 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        // Color selection functionality
+        const colorNames = {
+            '#FF0000': 'Red',
+            '#00FF00': 'Green',
+            '#0000FF': 'Blue',
+            '#FFFF00': 'Yellow',
+            '#FF00FF': 'Magenta',
+            '#00FFFF': 'Cyan',
+            '#FFA500': 'Orange',
+            '#800080': 'Purple',
+            '#FFC0CB': 'Pink',
+            '#A52A2A': 'Brown',
+            '#808080': 'Gray',
+            '#000000': 'Black'
+        };
 
+        function initColorSelection(modalType) {
+            const modal = document.querySelector(`#Create${modalType}Modal`);
+            const colorOptions = modal.querySelectorAll('.color-option');
+            const colorInput = modal.querySelector(`#color_${modalType.toLowerCase()}`);
+            const previewColor = modal.querySelector(`#preview-color-${modalType.toLowerCase()}`);
+            const colorName = modal.querySelector(`#color-name-${modalType.toLowerCase()}`);
+
+            // Set default selection
+            colorOptions[0].classList.add('selected');
+
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+
+                    // Update hidden input value
+                    const selectedColor = this.dataset.color;
+                    colorInput.value = selectedColor;
+
+                    // Update preview
+                    previewColor.style.backgroundColor = selectedColor;
+                    colorName.textContent = colorNames[selectedColor];
+                });
+            });
+        }
+
+        // Initialize color selection for all modals
+        initColorSelection('Point');
+        initColorSelection('Polyline');
+        initColorSelection('Polygon');
 
         /* Digitize Function */
         var drawnItems = new L.FeatureGroup();
@@ -252,16 +419,23 @@
             }
 
             drawnItems.addLayer(layer);
-
-
         });
     </script>
 
     <script>
         /* GeoJSON Point */
         var point = L.geoJson(null, {
+            pointToLayer: function(feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 8,
+                    fillColor: feature.properties.color || '#FF0000',
+                    color: feature.properties.color || '#FF0000',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                });
+            },
             onEachFeature: function(feature, layer) {
-
                 var routedelete = "{{ route('points.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
 
@@ -300,8 +474,14 @@
 
         /* GeoJSON Polyline */
         var polyline = L.geoJson(null, {
+            style: function(feature) {
+                return {
+                    color: feature.properties.color || '#FF0000',
+                    weight: 4,
+                    opacity: 0.8
+                };
+            },
             onEachFeature: function(feature, layer) {
-
                 var routedelete = "{{ route('polylines.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
                 var routeedit = "{{ route('polylines.edit', ':id') }}";
@@ -339,8 +519,16 @@
 
         /* GeoJSON Polygon */
         var polygon = L.geoJson(null, {
+            style: function(feature) {
+                return {
+                    fillColor: feature.properties.color || '#FF0000',
+                    color: feature.properties.color || '#FF0000',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.7
+                };
+            },
             onEachFeature: function(feature, layer) {
-
                 var routedelete = "{{ route('polygons.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
                 var routeedit = "{{ route('polygons.edit', ':id') }}";
