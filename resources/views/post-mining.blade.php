@@ -294,6 +294,61 @@
             border-color: #ffc107;
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
         }
+
+        .legend-card {
+            position: absolute;
+            bottom: 20px;
+            /* <-- Posisi di bawah */
+            right: 20px;
+            /* <-- Posisi di kanan */
+            z-index: 1000;
+            width: 200px;
+            /* <-- Lebar bisa disesuaikan */
+            background-color: rgba(29, 29, 29, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            /* Jarak antara warna dan teks */
+            padding: 0.1rem 0.8rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .legend-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .legend-color.is-point {
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .legend-color.is-line {
+            height: 4px;
+            align-self: center;
+        }
+
+        .legend-label {
+            font-weight: 500;
+            color: #d0d0d0;
+        }
     </style>
     <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
 </head>
@@ -352,8 +407,39 @@
                             <i class="fa-solid fa-mountain-sun"></i>
                         </a>
                     </div>
+                </div>
+            </div>
 
-
+            <div class="legend-card">
+                <div class="layer-control-header">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Legend</span>
+                </div>
+                <div class="layer-control-body">
+                    <div class="legend-item">
+                        <span class="legend-color is-line" style="background-color: #E74C3C;"></span>
+                        <span class="legend-label">Polylines</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #E74C3C;"></span>
+                        <span class="legend-label">Lake</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #E74C3C;"></span>
+                        <span class="legend-label">Agricultural Land</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #E74C3C;"></span>
+                        <span class="legend-label">Forest Land</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #E74C3C;"></span>
+                        <span class="legend-label">Recreation Area</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #E74C3C;"></span>
+                        <span class="legend-label">Infrastructure</span>
+                    </div>
                 </div>
             </div>
 

@@ -94,7 +94,6 @@
             background: #ffffff;
         }
 
-        /* Style untuk kartu popup */
         .popup-card {
             width: 100%;
         }
@@ -103,7 +102,6 @@
             width: 100%;
             height: 150px;
             object-fit: cover;
-            /* Memastikan gambar terpotong rapi */
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
         }
@@ -150,13 +148,11 @@
 
         .popup-actions form {
             margin-bottom: 0;
-            /* Menghilangkan margin bawah default dari form */
         }
 
         .layer-control-card {
             position: absolute;
             top: 20px;
-            /* Sedikit di bawah toolbar Draw */
             right: 20px;
             z-index: 1000;
             width: 260px;
@@ -200,7 +196,8 @@
         }
 
         .footer-item:not(:last-child) {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
         .footer-item:hover {
             background-color: rgba(255, 255, 255, 0.05);
@@ -289,9 +286,63 @@
 
         .form-switch .form-check-input:checked {
             background-color: #ffc107;
-            /* Warna emas yang cocok dengan tema Balay */
             border-color: #ffc107;
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+        }
+
+        .legend-card {
+            position: absolute;
+            bottom: 20px;
+            /* <-- Posisi di bawah */
+            right: 20px;
+            /* <-- Posisi di kanan */
+            z-index: 1000;
+            width: 200px;
+            /* <-- Lebar bisa disesuaikan */
+            background-color: rgba(29, 29, 29, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            /* Jarak antara warna dan teks */
+            padding: 0.1rem 0.8rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .legend-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .legend-color.is-point {
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .legend-color.is-line {
+            height: 4px;
+            align-self: center;
+        }
+
+        .legend-label {
+            font-weight: 500;
+            color: #d0d0d0;
         }
     </style>
     <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
@@ -313,7 +364,7 @@
                     <span>Layer Control</span>
                 </div>
 
-                {{-- Bagian Body (Kontrol Layer) --}}
+                {{-- Bagian Body --}}
                 <div class="layer-control-body">
                     <div class="layer-item">
                         <label for="togglePoints" class="layer-label">
@@ -351,8 +402,31 @@
                             <i class="fa-solid fa-seedling"></i>
                         </a>
                     </div>
+                </div>
+            </div>
 
-
+            <div class="legend-card">
+                <div class="layer-control-header">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Legend</span>
+                </div>
+                <div class="layer-control-body">
+                    <div class="legend-item">
+                        <span class="legend-color is-point" style="background-color: #d9534f;"></span>
+                        <span class="legend-label">Pos Pantau</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color is-point" style="background-color: #5bc0de;"></span>
+                        <span class="legend-label">Kantor Utama</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color is-line" style="background-color: #E74C3C;"></span>
+                        <span class="legend-label">Polylines</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #E74C3C;"></span>
+                        <span class="legend-label">Polygons</span>
+                    </div>
                 </div>
             </div>
 
@@ -708,21 +782,18 @@
                 const $imageInput = $modal.find('input[name="image"]');
                 const $imagePreview = $modal.find('img[id^="preview-image"]');
 
-                // Logika Pemilih Warna
                 $colorOptions.on('click', function() {
                     const selectedColor = $(this).data('color');
                     $colorOptions.removeClass('selected');
                     $(this).addClass('selected');
                     $colorInput.val(selectedColor);
 
-                    // Update preview jika ada
                     const $previewCircle = $modal.find('.color-preview-circle');
                     const $colorNameSpan = $modal.find('span[id^="color-name"]');
                     if ($previewCircle.length) $previewCircle.css('background-color', selectedColor);
                     if ($colorNameSpan.length) $colorNameSpan.text(colorNames[selectedColor] || 'Custom');
                 });
 
-                // Logika Preview Gambar
                 $imageInput.on('change', function(event) {
                     const file = event.target.files[0];
                     if (file) {
@@ -730,7 +801,6 @@
                     }
                 });
 
-                // Logika Reset Form saat Modal Ditutup
                 $modal.on('hidden.bs.modal', function() {
                     $form[0].reset();
                     $imagePreview.attr('src', '').hide();
@@ -739,11 +809,9 @@
                     $colorInput.val(defaultColor);
                 });
 
-                // Inisialisasi warna default saat pertama kali
                 $colorOptions.first().trigger('click');
             }
 
-            // Inisialisasi interaksi untuk setiap modal "Create"
             initModalInteractions('#CreatePointModal');
             initModalInteractions('#CreatePolylineModal');
             initModalInteractions('#CreatePolygonModal');
@@ -780,45 +848,42 @@
             var pointLayer, polylineLayer, polygonLayer;
 
             function createModernPopup(feature, layer) {
-    const props = feature.properties;
-    const geomType = feature.geometry.type.toLowerCase(); // Hasilnya: "point", "linestring", "polygon"
-    let typePlural; // Variabel kosong untuk diisi
+                const props = feature.properties;
+                const geomType = feature.geometry.type.toLowerCase();
+                let typePlural;
 
-    // ====================================================================
-    // PERBAIKAN UTAMA: Logika eksplisit untuk menentukan nama route/controller
-    // Ini memastikan nama yang benar selalu digunakan.
-    // ====================================================================
-    if (geomType.includes('point')) {
-        typePlural = 'points';
-    } else if (geomType.includes('linestring')) {
-        typePlural = 'polylines'; // <-- SECARA EKSPLISIT diatur ke 'polylines'
-    } else if (geomType.includes('polygon')) {
-        typePlural = 'polygons';
-    } else {
-        // Jika tipe geometri tidak dikenali, hentikan fungsi
-        console.error("Tipe geometri tidak dikenali:", geomType);
-        return;
-    }
+                // ====================================================================
+                // PERBAIKAN UTAMA: Logika eksplisit untuk menentukan nama route/controller
+                // Ini memastikan nama yang benar selalu digunakan.
+                // ====================================================================
+                if (geomType.includes('point')) {
+                    typePlural = 'points';
+                } else if (geomType.includes('linestring')) {
+                    typePlural = 'polylines';
+                } else if (geomType.includes('polygon')) {
+                    typePlural = 'polygons';
+                } else {
+                    console.error("Tipe geometri tidak dikenali:", geomType);
+                    return;
+                }
 
-    const imageSrc = props.image ? `{{ asset('storage/images') }}/${props.image}` : null;
+                const imageSrc = props.image ? `{{ asset('storage/images') }}/${props.image}` : null;
 
-    // Sekarang ${typePlural} akan selalu benar (misal: /points/5 atau /polylines/2)
-    const editUrl = `{{ url('/') }}/${typePlural}/${props.id}/edit`;
-    const deleteUrl = `{{ url('/') }}/${typePlural}/${props.id}`;
+                const editUrl = `{{ url('/') }}/${typePlural}/${props.id}/edit`;
+                const deleteUrl = `{{ url('/') }}/${typePlural}/${props.id}`;
 
-    // Menentukan ikon berdasarkan typePlural yang sudah benar
-    let iconClass = 'fa-question-circle';
-    if (typePlural === 'points') iconClass = 'fa-map-marker-alt';
-    if (typePlural === 'polylines') iconClass = 'fa-road'; // Ikon jalan lebih cocok untuk polyline
-    if (typePlural === 'polygons') iconClass = 'fa-draw-polygon';
+                let iconClass = 'fa-question-circle';
+                if (typePlural === 'points') iconClass = 'fa-map-marker-alt';
+                if (typePlural === 'polylines') iconClass = 'fa-road';
+                if (typePlural === 'polygons') iconClass = 'fa-draw-polygon';
 
-    let details = '';
-    if (props.length_m) details =
-        `<div class="d-flex align-items-center text-muted small mb-3"><i class="fa-solid fa-ruler-horizontal fa-fw me-2"></i><strong>${Number(props.length_m).toFixed(2)} Meter</strong></div>`;
-    if (props.luas_hektar) details =
-        `<div class="d-flex align-items-center text-muted small mb-1"><i class="fa-solid fa-vector-square fa-fw me-2"></i><strong>${Number(props.luas_hektar).toFixed(2)} Hectare</strong></div>`;
+                let details = '';
+                if (props.length_m) details =
+                    `<div class="d-flex align-items-center text-muted small mb-3"><i class="fa-solid fa-ruler-horizontal fa-fw me-2"></i><strong>${Number(props.length_m).toFixed(2)} Meter</strong></div>`;
+                if (props.luas_hektar) details =
+                    `<div class="d-flex align-items-center text-muted small mb-1"><i class="fa-solid fa-vector-square fa-fw me-2"></i><strong>${Number(props.luas_hektar).toFixed(2)} Hectare</strong></div>`;
 
-    const popupContent = `
+                const popupContent = `
         <div class="popup-card">
             ${imageSrc ? `<img src="${imageSrc}" alt="Foto" class="popup-image">` : `<div class="popup-image-placeholder"><i class="fa-solid ${iconClass} fa-2x"></i></div>`}
             <div class="popup-content-area">
@@ -839,13 +904,12 @@
             </div>
         </div>`;
 
-    layer.bindPopup(popupContent, {
-        className: 'custom-leaflet-popup'
-    });
-    layer.bindTooltip(props.name);
-}
+                layer.bindPopup(popupContent, {
+                    className: 'custom-leaflet-popup'
+                });
+                layer.bindTooltip(props.name);
+            }
 
-            // Fetch Points
             pointLayer = L.geoJson(null, {
                 pointToLayer: (f, l) => L.circleMarker(l, {
                     radius: 6,
@@ -859,7 +923,6 @@
             });
             $.getJSON("{{ route('api.points') }}", data => pointLayer.addData(data).addTo(map));
 
-            // Fetch Polylines
             polylineLayer = L.geoJson(null, {
                 style: f => ({
                     color: f.properties.color || '#E74C3C',
@@ -870,7 +933,6 @@
             });
             $.getJSON("{{ route('api.polylines') }}", data => polylineLayer.addData(data).addTo(map));
 
-            // Fetch Polygons
             polygonLayer = L.geoJson(null, {
                 style: f => ({
                     fillColor: f.properties.color || '#E74C3C',
