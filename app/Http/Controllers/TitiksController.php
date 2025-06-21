@@ -20,7 +20,7 @@ class TitiksController extends Controller
             'title' => 'Map',
         ];
 
-        return view('map', $data);
+        return view('post-mining', $data);
     }
 
     /**
@@ -76,10 +76,10 @@ class TitiksController extends Controller
 
         // create data
         if (!$this->titiks->create($data)) {
-            return redirect()->route('map')->with('error', 'Titik failed to add!');
+            return redirect()->route('post-mining')->with('error', 'Titik failed to add!');
         }
 
-        return redirect()->route('map')->with('success', 'Titik has been added!');
+        return redirect()->route('post-mining')->with('success', 'Titik has been added!');
     }
 
     /**
@@ -160,11 +160,11 @@ class TitiksController extends Controller
 
         // Update data
         if (!$this->titiks->find($id)->update($data)) {
-            return redirect()->route('map')->with('error', 'Titik failed to update');
+            return redirect()->route('post-mining')->with('error', 'Titik failed to update');
         }
 
-        //redirect to map
-        return redirect()->route('map')->with('success', 'Titik has been updated');
+        //redirect to post-mining
+        return redirect()->route('post-mining')->with('success', 'Titik has been updated');
     }
 
     /**
@@ -175,7 +175,7 @@ class TitiksController extends Controller
         $imagefile = $this->titiks->find($id)->image;
 
         if (!$this->titiks->destroy($id)) {
-            return redirect()->route('map')->with('error', 'Titik failed to delete!');
+            return redirect()->route('post-mining')->with('error', 'Titik failed to delete!');
         }
         // delete image
         if ($imagefile != null) {
@@ -184,6 +184,6 @@ class TitiksController extends Controller
             }
         }
 
-        return redirect()->route('map')->with('success', 'Titik has been deleted!');
+        return redirect()->route('post-mining')->with('success', 'Titik has been deleted!');
     }
 }
