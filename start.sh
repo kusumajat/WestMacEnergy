@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Mulai proses PHP-FPM di background
-php-fpm &
+# Mulai proses PHP-FPM di background dengan path lengkap
+/usr/sbin/php-fpm &
 
-# Mulai Nginx di foreground
-# Perintah -g 'daemon off;' membuat Nginx tidak lari ke background
-# yang akan menjaga container tetap hidup.
-nginx -g 'daemon off;'
+# Mulai Nginx di foreground dengan path lengkap
+/usr/sbin/nginx -g 'daemon off;'
