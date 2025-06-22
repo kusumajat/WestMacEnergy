@@ -1,13 +1,11 @@
 <?php
 
-// Vercel PHP bootstrap
-if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
-    require __DIR__ . '/../vendor/autoload.php';
-}
+// Set proper error reporting for production
+error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+ini_set('display_errors', 0);
 
-// Set correct path for Laravel
-$_SERVER['SCRIPT_FILENAME'] = __DIR__ . '/../public/index.php';
-$_SERVER['SCRIPT_NAME'] = '/index.php';
+// Set timezone if needed
+date_default_timezone_set('Asia/Jakarta');
 
-// Include Laravel's public index
+// Include Laravel
 require __DIR__ . '/../public/index.php';
