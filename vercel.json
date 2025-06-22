@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.6.0"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.php"
+    }
+  ],
+  "env": {
+    "APP_NAME": "WestMacEnergy",
+    "APP_ENV": "production",
+    "APP_DEBUG": "false",
+    "APP_URL": "https://westmacenergy.vercel.app",
+
+    "APP_TIMEZONE": "Asia/Jakarta",
+    "APP_LOCALE": "en",
+    "APP_FALLBACK_LOCALE": "en",
+
+    "BCRYPT_ROUNDS": "12",
+    "LOG_CHANNEL": "stderr",
+    "LOG_LEVEL": "error",
+    "LOG_DEPRECATIONS_CHANNEL": "null",
+
+    "DB_CONNECTION": "pgsql",
+
+    "SESSION_DRIVER": "database",
+    "SESSION_LIFETIME": "120",
+    "QUEUE_CONNECTION": "database",
+    "CACHE_STORE": "database",
+    "FILESYSTEM_DISK": "s3",
+
+    "BROADCAST_CONNECTION": "log",
+    "REDIS_CLIENT": "phpredis",
+    "MAIL_MAILER": "log"
+  }
+}
