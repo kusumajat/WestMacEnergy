@@ -1,9 +1,0 @@
-.env*
-node_modules
-vendor
-storage/logs
-bootstrap/cache
-tests
-.git
-.github
-*.log

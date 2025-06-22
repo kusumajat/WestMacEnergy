@@ -2,10 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "vercel-build": "npm ci && npm run build",
-        "build": "vite build --outDir=public/build",
-        "dev": "vite",
-        "prod": "vite build"
+        "build": "vite build",
+        "dev": "vite"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
