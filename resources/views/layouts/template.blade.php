@@ -22,6 +22,8 @@
     @stack('styles')
     @yield('styles')
     <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@babylonjs/viewer/dist/babylon-viewer.esm.min.js"></script>
+
 </head>
 
 <body>

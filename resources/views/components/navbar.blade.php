@@ -35,7 +35,6 @@
 
     <div class="colorlib-footer">
         <ul>
-            {{-- Autentikasi Pengguna --}}
             @guest
                 <li class="{{ request()->routeIs('login') ? 'colorlib-active' : '' }}">
                     <a href="{{ route('login') }}"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
@@ -66,13 +65,21 @@
                 Copyright &copy;
                 <script>
                     document.write(new Date().getFullYear());
-                </script> <br>by <a href="https://www.linkedin.com/in/risma-kusumajati/" target="_blank">Risma Kusumajati</a>
+                </script> <br>by <a href="https://www.linkedin.com/in/risma-kusumajati/"
+                    target="_blank">Risma Kusumajati</a>
             </small></p>
         <ul>
-            <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
-            <li><a href="https://github.com/kusumajat"><i class="fa-brands fa-github"></i></a></li>
-            <li><a href="https://www.instagram.com/kusumaj_ris?igsh=MWtxN2tnN3dnNTd6YQ=="><i class="fa-brands fa-instagram"></i></a></li>
-            <li><a href="https://www.linkedin.com/in/risma-kusumajati/"><i class="fa-brands fa-linkedin"></i></a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
+            </li>
+
+            <li><a href="https://github.com/kusumajat" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-github"></i></a></li>
+
+            <li><a href="https://www.instagram.com/kusumaj_ris?igsh=MWtxN2tnN3dnNTd6YQ==" target="_blank"
+                    rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a></li>
+
+            <li><a href="https://www.linkedin.com/in/risma-kusumajati/" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-linkedin"></i></a></li>
         </ul>
     </div>
 </aside>
