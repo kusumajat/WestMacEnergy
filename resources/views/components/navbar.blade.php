@@ -2,7 +2,7 @@
 
 <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
     <h1 id="colorlib-logo">
-        <a href="{{ route('home') }}"><i class="fa-solid fa-earth-americas"></i> {{ $title ?? 'Balay' }}</a>
+        <a href="{{ route('home') }}"><i class="fa-solid fa-earth-americas"></i> {{ $title ?? 'Home' }}</a>
     </h1>
 
     <nav id="colorlib-main-menu" role="navigation">
