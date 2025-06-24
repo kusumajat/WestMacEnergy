@@ -411,21 +411,50 @@
                     <span>Legend</span>
                 </div>
                 <div class="layer-control-body">
-                    <div class="legend-item">
-                        <span class="legend-color is-point" style="background-color: #d9534f;"></span>
-                        <span class="legend-label">Pos Pantau</span>
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 3.5px solid #ffffff; background-color: rgba(165, 42, 42, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Building</span>
                     </div>
-                    <div class="legend-item">
-                        <span class="legend-color is-point" style="background-color: #5bc0de;"></span>
-                        <span class="legend-label">Kantor Utama</span>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color is-line" style="background-color: #0000FF;"></span>
+                        <span class="legend-label" style="margin-left: 8px;">River</span>
                     </div>
-                    <div class="legend-item">
-                        <span class="legend-color is-line" style="background-color: #E74C3C;"></span>
-                        <span class="legend-label">Polylines</span>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color is-line" style="background-color: #808080;"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Railway</span>
                     </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #E74C3C;"></span>
-                        <span class="legend-label">Polygons</span>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #00FFFF; background-color: rgba(0, 255, 255, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Buildings</span>
+                    </div>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #FF00FF; background-color: rgba(255, 0, 255, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Mining Area</span>
+                    </div>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #00FF00; background-color: rgba(0, 255, 0, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Non Mining</span>
+                    </div>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #FFA500; background-color: rgba(255, 165, 0, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Graded Area</span>
+                    </div>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #FF0000; background-color: rgba(255, 0, 0, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Power Plant</span>
                     </div>
                 </div>
             </div>
@@ -695,18 +724,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="https://unpkg.com/@terraformer/wkt"></script>
 
-    {{-- Script Aplikasi Utama --}}
     <script>
         $(document).ready(function() {
-            // =================================================================
+
             // 1. INISIALISASI PETA & KONTROL DRAW
-            // =================================================================
-            var map = L.map('map').setView([-5.29, 122.861], 13);
+
+            var map = L.map('map').setView([40.45044281582284, 21.79504261640114], 12);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-            /* Digitize Function */
             var drawnItems = new L.FeatureGroup();
             map.addLayer(drawnItems);
 
@@ -758,9 +785,9 @@
                 drawnItems.addLayer(layer);
             });
 
-            // =================================================================
-            // 2. LOGIKA MODAL CREATE (UNTUK SEMUA TIPE)
-            // =================================================================
+
+            // 2. LOGIKA MODAL CREATE
+
             const colorNames = {
                 '#FF0000': 'Red',
                 '#00FF00': 'Green',
@@ -818,9 +845,9 @@
             initModalInteractions('#CreatePolylineModal');
             initModalInteractions('#CreatePolygonModal');
 
-            // =================================================================
+
             // 3. LOGIKA LEAFLET DRAW (SAAT MENGGAMBAR)
-            // =================================================================
+
             map.on('draw:created', function(e) {
                 var type = e.layerType,
                     layer = e.layer;
@@ -844,9 +871,9 @@
                 }
             });
 
-            // =================================================================
+
             // 4. DEKLARASI LAYER & LOGIKA MENAMPILKAN DATA DARI API
-            // =================================================================
+
             var pointLayer, polylineLayer, polygonLayer;
 
             function createModernPopup(feature, layer) {
@@ -854,10 +881,6 @@
                 const geomType = feature.geometry.type.toLowerCase();
                 let typePlural;
 
-                // ====================================================================
-                // PERBAIKAN UTAMA: Logika eksplisit untuk menentukan nama route/controller
-                // Ini memastikan nama yang benar selalu digunakan.
-                // ====================================================================
                 if (geomType.includes('point')) {
                     typePlural = 'points';
                 } else if (geomType.includes('linestring')) {
@@ -900,8 +923,8 @@
                     <a href="${editUrl}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                     <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Are you sure want to delete this data?');">
                         @csrf
-                        @method('DELETE')
-                        @yield('title')
+                        @yield('title', 'My App')
+                        undefined
                         <button type="submit" class="btn btn-sm btn-light text-danger" title="Delete"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                 </div>
@@ -914,6 +937,29 @@
                 });
                 layer.bindTooltip(props.name);
             }
+
+
+            polygonLayer = L.geoJson(null, {
+                style: f => ({
+                    fillColor: f.properties.color || '#E74C3C',
+                    color: f.properties.color || '#E74C3C',
+                    weight: 3,
+                    opacity: 1,
+                    fillOpacity: 0.3
+                }),
+                onEachFeature: createModernPopup
+            });
+            $.getJSON("{{ route('api.polygons') }}", data => polygonLayer.addData(data).addTo(map));
+
+            polylineLayer = L.geoJson(null, {
+                style: f => ({
+                    color: f.properties.color || '#E74C3C',
+                    weight: 4,
+                    opacity: 0.9
+                }),
+                onEachFeature: createModernPopup
+            });
+            $.getJSON("{{ route('api.polylines') }}", data => polylineLayer.addData(data).addTo(map));
 
             pointLayer = L.geoJson(null, {
                 pointToLayer: (f, l) => L.circleMarker(l, {
@@ -928,31 +974,9 @@
             });
             $.getJSON("{{ route('api.points') }}", data => pointLayer.addData(data).addTo(map));
 
-            polylineLayer = L.geoJson(null, {
-                style: f => ({
-                    color: f.properties.color || '#E74C3C',
-                    weight: 4,
-                    opacity: 0.9
-                }),
-                onEachFeature: createModernPopup
-            });
-            $.getJSON("{{ route('api.polylines') }}", data => polylineLayer.addData(data).addTo(map));
 
-            polygonLayer = L.geoJson(null, {
-                style: f => ({
-                    fillColor: f.properties.color || '#E74C3C',
-                    color: f.properties.color || '#E74C3C',
-                    weight: 3,
-                    opacity: 1,
-                    fillOpacity: 0.3
-                }),
-                onEachFeature: createModernPopup
-            });
-            $.getJSON("{{ route('api.polygons') }}", data => polygonLayer.addData(data).addTo(map));
-
-            // =================================================================
             // 5. FUNGSIONALITAS CONTROL LAYER
-            // =================================================================
+
             $('#togglePoints').on('change', function() {
                 if ($(this).is(':checked')) map.addLayer(pointLayer);
                 else map.removeLayer(pointLayer);

@@ -80,7 +80,7 @@
 
                 <div class="col-md-7 animate-box" data-animate-effect="fadeInRight">
                     <div id="viewer-container">
-                        <babylon-viewer source="/assets/map.glb"
+                        <babylon-viewer source="/assets/model3d.glb"
                         autoplay camera-auto-rotate camera-target="0 1 0"
                         reframe style="width: 100%; height: 100%;">
                         </babylon-viewer>

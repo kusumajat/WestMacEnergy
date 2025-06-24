@@ -87,14 +87,12 @@
         .custom-leaflet-popup .leaflet-popup-content {
             margin: 0 !important;
             min-width: 280px;
-            /* Lebar minimum popup */
         }
 
         .custom-leaflet-popup .leaflet-popup-tip {
             background: #ffffff;
         }
 
-        /* Style untuk kartu popup */
         .popup-card {
             width: 100%;
         }
@@ -103,7 +101,6 @@
             width: 100%;
             height: 150px;
             object-fit: cover;
-            /* Memastikan gambar terpotong rapi */
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
         }
@@ -298,12 +295,9 @@
         .legend-card {
             position: absolute;
             bottom: 20px;
-            /* <-- Posisi di bawah */
             right: 20px;
-            /* <-- Posisi di kanan */
             z-index: 1000;
             width: 200px;
-            /* <-- Lebar bisa disesuaikan */
             background-color: rgba(29, 29, 29, 0.8);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -318,7 +312,6 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            /* Jarak antara warna dan teks */
             padding: 0.1rem 0.8rem;
             border-radius: 8px;
             transition: background-color 0.2s ease-in-out;
@@ -363,13 +356,11 @@
             <div id="map"></div>
 
             <div class="layer-control-card">
-                {{-- Bagian Header --}}
                 <div class="layer-control-header">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Layer Control</span>
                 </div>
 
-                {{-- Bagian Body (Kontrol Layer) --}}
                 <div class="layer-control-body">
                     <div class="layer-item">
                         <label for="toggleTitiks" class="layer-label">
@@ -416,29 +407,39 @@
                     <span>Legend</span>
                 </div>
                 <div class="layer-control-body">
-                    <div class="legend-item">
-                        <span class="legend-color is-line" style="background-color: #E74C3C;"></span>
-                        <span class="legend-label">Polylines</span>
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color is-line" style="background-color: #0000FF;"></span>
+                        <span class="legend-label" style="margin-left: 8px;">River</span>
                     </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #E74C3C;"></span>
-                        <span class="legend-label">Lake</span>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #0000FF; background-color: rgba(0, 0, 255, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Lake</span>
                     </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #E74C3C;"></span>
-                        <span class="legend-label">Agricultural Land</span>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #FFFF00; background-color: rgba(255, 255, 0, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Agricultural Land</span>
                     </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #E74C3C;"></span>
-                        <span class="legend-label">Forest Land</span>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #00FF00; background-color: rgba(0, 255, 0, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Forest Land</span>
                     </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #E74C3C;"></span>
-                        <span class="legend-label">Recreation Area</span>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #FFA500; background-color: rgba(255, 165, 0, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Recreation Area</span>
                     </div>
-                    <div class="legend-item">
-                        <span class="legend-color" style="background-color: #E74C3C;"></span>
-                        <span class="legend-label">Infrastructure</span>
+
+                    <div class="legend-item" style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span class="legend-color"
+                            style="display: inline-block; width: 18px; height: 18px; border: 2px solid #FF0000; background-color: rgba(255, 0, 0, 0.4);"></span>
+                        <span class="legend-label" style="margin-left: 8px;">Infrastructure</span>
                     </div>
                 </div>
             </div>
@@ -708,13 +709,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="https://unpkg.com/@terraformer/wkt"></script>
 
-    {{-- Script Aplikasi Utama --}}
     <script>
         $(document).ready(function() {
-            // =================================================================
+
             // 1. INISIALISASI PETA & KONTROL DRAW
-            // =================================================================
-            var map = L.map('map').setView([-5.29, 122.861], 13);
+
+            var map = L.map('map').setView([40.45984472543331, 21.772026473006864], 12);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
@@ -737,7 +737,7 @@
             });
 
             @if (auth()->user() && auth()->user()->role === 'admin')
-            map.addControl(drawControl);
+                map.addControl(drawControl);
             @endif
 
             map.on('draw:created', function(e) {
@@ -771,9 +771,9 @@
                 drawnItems.addLayer(layer);
             });
 
-            // =================================================================
+
             // 2. LOGIKA MODAL CREATE (UNTUK SEMUA TIPE)
-            // =================================================================
+
             const colorNames = {
                 '#FF0000': 'Red',
                 '#00FF00': 'Green',
@@ -797,21 +797,18 @@
                 const $imageInput = $modal.find('input[name="image"]');
                 const $imagePreview = $modal.find('img[id^="preview-image"]');
 
-                // Logika Pemilih Warna
                 $colorOptions.on('click', function() {
                     const selectedColor = $(this).data('color');
                     $colorOptions.removeClass('selected');
                     $(this).addClass('selected');
                     $colorInput.val(selectedColor);
 
-                    // Update preview jika ada
                     const $previewCircle = $modal.find('.color-preview-circle');
                     const $colorNameSpan = $modal.find('span[id^="color-name"]');
                     if ($previewCircle.length) $previewCircle.css('background-color', selectedColor);
                     if ($colorNameSpan.length) $colorNameSpan.text(colorNames[selectedColor] || 'Custom');
                 });
 
-                // Logika Preview Gambar
                 $imageInput.on('change', function(event) {
                     const file = event.target.files[0];
                     if (file) {
@@ -819,7 +816,6 @@
                     }
                 });
 
-                // Logika Reset Form saat Modal Ditutup
                 $modal.on('hidden.bs.modal', function() {
                     $form[0].reset();
                     $imagePreview.attr('src', '').hide();
@@ -828,18 +824,16 @@
                     $colorInput.val(defaultColor);
                 });
 
-                // Inisialisasi warna default saat pertama kali
                 $colorOptions.first().trigger('click');
             }
 
-            // Inisialisasi interaksi untuk setiap modal "Create"
             initModalInteractions('#CreateTitikModal');
             initModalInteractions('#CreateGarisModal');
             initModalInteractions('#CreateAreaModal');
 
-            // =================================================================
-            // 3. LOGIKA LEAFLET DRAW (SAAT MENGGAMBAR)
-            // =================================================================
+
+            // 3. LOGIKA LEAFLET DRAW
+
             map.on('draw:created', function(e) {
                 var type = e.layerType,
                     layer = e.layer;
@@ -863,39 +857,35 @@
                 }
             });
 
-            // =================================================================
+
             // 4. DEKLARASI LAYER & LOGIKA MENAMPILKAN DATA DARI API
-            // =================================================================
+
             var titikLayer, garisLayer, areaLayer;
 
             function createModernPopup(feature, layer) {
                 const props = feature.properties;
-                const geomType = feature.geometry.type.toLowerCase(); // Hasilnya: "point", "linestring", "area"
-                let typePlural; // Variabel kosong untuk diisi
+                const geomType = feature.geometry.type.toLowerCase();
+                let typePlural;
 
-                // ====================================================================
+
                 // INI ADALAH LOGIKA YANG BENAR DAN AMAN
-                // ====================================================================
+
                 if (geomType.includes('point')) {
-                    typePlural = 'titiks'; // <-- SECARA EKSPLISIT diatur ke 'titiks'
+                    typePlural = 'titiks';
                 } else if (geomType.includes('linestring')) {
-                    typePlural = 'gariss'; // <-- Diatur ke 'gariss' (sesuai kode Anda sebelumnya)
+                    typePlural = 'gariss';
                 } else if (geomType.includes('polygon')) {
-                    typePlural = 'areas'; // <-- Diatur ke 'areas'
+                    typePlural = 'areas';
                 } else {
-                    // Jika tipe geometri tidak dikenali, hentikan fungsi
                     console.error("Tipe geometri tidak dikenali:", geomType);
                     return;
                 }
 
                 const imageSrc = props.image ? `{{ asset('storage/images') }}/${props.image}` : null;
 
-                // Sekarang ${typePlural} akan selalu benar sesuai dengan yang diatur di atas
-                // Contoh: /titiks/5 atau /gariss/2
                 const editUrl = `{{ url('/') }}/${typePlural}/${props.id}/edit`;
                 const deleteUrl = `{{ url('/') }}/${typePlural}/${props.id}`;
 
-                // Menentukan ikon berdasarkan typePlural yang sudah benar
                 let iconClass = 'fa-question-circle';
                 if (typePlural === 'titiks') iconClass = 'fa-map-marker-alt';
                 if (typePlural === 'gariss') iconClass = 'fa-road';
@@ -922,8 +912,8 @@
                     <a href="${editUrl}" class="btn btn-sm btn-light me-2" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                     <form method="POST" action="${deleteUrl}" onsubmit="return confirm('Are you sure want to delete this data?');">
                         @csrf
-                        @method('DELETE')
-                        @yield('title')
+                        @yield('title', 'My App')
+                        undefined
                         <button type="submit" class="btn btn-sm btn-light text-danger" title="Delete"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                 </div>
@@ -937,7 +927,29 @@
                 layer.bindTooltip(props.name);
             }
 
-            // Fetch Titiks
+            areaLayer = L.geoJson(null, {
+                style: f => ({
+                    fillColor: f.properties.color || '#E74C3C',
+                    color: f.properties.color || '#E74C3C',
+                    weight: 3,
+                    opacity: 1,
+                    fillOpacity: 0.3
+                }),
+                onEachFeature: createModernPopup
+            });
+            $.getJSON("{{ route('api.areas') }}", data => areaLayer.addData(data).addTo(map));
+
+            // Fetch Gariss
+            garisLayer = L.geoJson(null, {
+                style: f => ({
+                    color: f.properties.color || '#E74C3C',
+                    weight: 4,
+                    opacity: 0.9
+                }),
+                onEachFeature: createModernPopup
+            });
+            $.getJSON("{{ route('api.gariss') }}", data => garisLayer.addData(data).addTo(map));
+
             titikLayer = L.geoJson(null, {
                 pointToLayer: (f, l) => L.circleMarker(l, {
                     radius: 6,
@@ -951,33 +963,9 @@
             });
             $.getJSON("{{ route('api.titiks') }}", data => titikLayer.addData(data).addTo(map));
 
-            // Fetch Gariss
-            garisLayer = L.geoJson(null, {
-                style: f => ({
-                    color: f.properties.color || '#E74C3C',
-                    weight: 4,
-                    opacity: 0.9
-                }),
-                onEachFeature: createModernPopup
-            });
-            $.getJSON("{{ route('api.gariss') }}", data => garisLayer.addData(data).addTo(map));
 
-            // Fetch Areas
-            areaLayer = L.geoJson(null, {
-                style: f => ({
-                    fillColor: f.properties.color || '#E74C3C',
-                    color: f.properties.color || '#E74C3C',
-                    weight: 3,
-                    opacity: 1,
-                    fillOpacity: 0.3
-                }),
-                onEachFeature: createModernPopup
-            });
-            $.getJSON("{{ route('api.areas') }}", data => areaLayer.addData(data).addTo(map));
-
-            // =================================================================
             // 5. FUNGSIONALITAS CONTROL LAYER
-            // =================================================================
+
             $('#toggleTitiks').on('change', function() {
                 if ($(this).is(':checked')) map.addLayer(titikLayer);
                 else map.removeLayer(titikLayer);
