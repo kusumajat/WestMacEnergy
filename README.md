@@ -27,10 +27,10 @@ Platform ini menampilkan:
 - Informasi dan operasional tambang.
 - Tabel data eksploratif dengan fungsi pencarian.
 - Peta interaktif area penambangan dan rencana pasca-tambang.
-  <img src="https://github.com/user-attachments/assets/f5773b72-ea3b-44db-b324-8dabe0de8583" width="400"/>
+  <br><img src="https://github.com/user-attachments/assets/f5773b72-ea3b-44db-b324-8dabe0de8583" width="400"/>
 
 - Visualisasi 3D transformasi wilayah Ptolemais.
-  <img src="https://github.com/user-attachments/assets/9c871e91-a3d1-4a65-ab55-21d10f3133de" width="400"/>
+  <br><img src="https://github.com/user-attachments/assets/9c871e91-a3d1-4a65-ab55-21d10f3133de" width="400"/>
   
 
 ---
