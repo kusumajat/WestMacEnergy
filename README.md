@@ -139,9 +139,9 @@ Pastikan sudah terpasang:
 
 Untuk pertanyaan atau umpan balik, silakan hubungi:
 
-* **Risma Kusumajadi**
-* **Email**: [risma.kusumajadi@example.com](mailto:risma.kusumajadi@example.com) (Ganti dengan alamat email atau tautan profil LinkedIn/GitHub Anda)
+* **Risma Kusumajati**
+* **Email**: [rkusumajati14@gmail.com](mailto:rkusumajati14@gmail.com)
 
 ---
 
-Copyright © 2025 by Risma Kusumajadi.
+Copyright © 2025 by Risma Kusumajati.
