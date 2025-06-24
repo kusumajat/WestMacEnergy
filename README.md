@@ -25,7 +25,7 @@ Aplikasi web ini merupakan platform eksploratif dan visual interaktif yang dided
 **WestMacEnergy** bertujuan mendokumentasikan dan memvisualisasikan data spasial serta non-spasial seputar tambang lignite West Macedonia—salah satu penghasil lignite terbesar di Eropa yang dikembangkan oleh PPC S.A. Proyek ini juga menyoroti upaya transisi energi dan restorasi lingkungan sebagai bagian dari *Just Transition*.
 
 Platform ini menampilkan:
-- Informasi historis dan operasional tambang.
+- Informasi dan operasional tambang.
 - Visualisasi 3D transformasi wilayah Ptolemais.
 - Peta interaktif area penambangan dan rencana pasca-tambang.
 - Tabel data eksploratif dengan fungsi pencarian.
@@ -77,10 +77,6 @@ Platform ini menampilkan:
 - Diambil via backend dan divisualisasikan melalui frontend.
 
 ---
-
-## ⚙️ **Instalasi dan Penggunaan**
-
-Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
 
 ## ⚙️ Instalasi dan Penggunaan
 
