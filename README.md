@@ -30,7 +30,7 @@ Platform ini menampilkan:
 - Peta interaktif area penambangan dan rencana pasca-tambang.
   ![2025-06-24 21-27-47](https://github.com/user-attachments/assets/f5773b72-ea3b-44db-b324-8dabe0de8583)
 
-- - Visualisasi 3D transformasi wilayah Ptolemais.
+- Visualisasi 3D transformasi wilayah Ptolemais.
   ![2025-06-24 21-15-41](https://github.com/user-attachments/assets/9c871e91-a3d1-4a65-ab55-21d10f3133de)
   
 
