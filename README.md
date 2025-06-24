@@ -4,7 +4,6 @@
 ![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue?style=flat-square&logo=postgresql)
 ![PostGIS](https://img.shields.io/badge/Spatial%20Data-PostGIS-green?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-In%20Development-yellow?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)
 
 Selamat datang di repositori **WestMacEnergy**!  
 Aplikasi web ini merupakan platform eksploratif dan visual interaktif yang didedikasikan untuk dokumentasi operasi tambang lignite di West Macedonia serta transisinya menuju energi terbarukan dan pemanfaatan lahan pasca-tambang.
