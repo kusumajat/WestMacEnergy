@@ -27,8 +27,13 @@ Aplikasi web ini merupakan platform eksploratif dan visual interaktif yang dided
 Platform ini menampilkan:
 - Informasi dan operasional tambang.
 - Visualisasi 3D transformasi wilayah Ptolemais.
+  ![2025-06-24 21-15-41](https://github.com/user-attachments/assets/9c871e91-a3d1-4a65-ab55-21d10f3133de)
+
 - Peta interaktif area penambangan dan rencana pasca-tambang.
+  ![image](https://github.com/user-attachments/assets/d1e23a0b-38bf-4463-a5d7-830240ae8edf)
+
 - Tabel data eksploratif dengan fungsi pencarian.
+  
 
 ---
 
