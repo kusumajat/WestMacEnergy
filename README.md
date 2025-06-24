@@ -46,10 +46,10 @@ Seiring dengan upaya dunia untuk merangkul energi yang lebih bersih, WestMacEner
 
 ## 🛠️ **Teknologi yang Digunakan**
 
-* **Frontend**: HTML, CSS, JavaScript (kemungkinan besar dengan library peta seperti Leaflet.js atau Mapbox GL JS untuk peta interaktif).
-* **Backend**: (Berdasarkan URL `127.0.0.1:8000`, kemungkinan server lokal yang menyajikan file statis atau API sederhana. Anda perlu mengisi ini jika ada backend spesifik, misalnya Python Flask/Django, Node.js Express, atau PHP).
-* **Database**: (Jika ada backend dan data yang disimpan secara dinamis, sebutkan jenis database-nya, misal PostgreSQL, MySQL, SQLite).
-* **Data Geospasial**: Kemungkinan menggunakan format GeoJSON atau serupa untuk data area di peta.
+* **Backend**: PHP (menggunakan **Laravel Framework**).
+* **Database**: MySQL (umumnya digunakan dengan Laravel, atau bisa juga PostgreSQL/SQLite jika Anda menggunakannya).
+* **Frontend**: HTML, CSS, JavaScript (dengan library peta seperti **Leaflet.js** atau **Mapbox GL JS** untuk peta interaktif, dan mungkin framework JS seperti **Vue.js** atau **React.js** jika digunakan dalam Blade atau terpisah).
+* **Data Geospasial**: Penggunaan format GeoJSON atau serupa untuk data area di peta.
 
 ---
 
@@ -57,79 +57,59 @@ Seiring dengan upaya dunia untuk merangkul energi yang lebih bersih, WestMacEner
 
 Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
 
-1.  **Kloning repositori:**
+1.  **Pastikan Anda memiliki hal-hal berikut terinstal:**
+    * PHP (versi 8.x direkomendasikan)
+    * Composer
+    * Node.js & npm (jika Anda menggunakan aset frontend yang dikompilasi seperti Vue/React)
+    * Web Server (Apache atau Nginx)
+    * Database (MySQL direkomendasikan)
+
+2.  **Kloning repositori:**
     ```bash
-    git clone [https://github.com/NamaPenggunaGitHubAnda/WestMacEnergy.git](https://github.com/NamaPenggunaGitHubAnda/WestMacEnergy.git)
+    git clone [https://github.com/kusumajat/WestMacEnergy.git](https://github.com/kusumajat/WestMacEnergy.git)
     cd WestMacEnergy
     ```
-    **CATATAN**: Ganti `NamaPenggunaGitHubAnda` dengan username GitHub Anda yang sebenarnya.
+    **CATATAN**: Jika Anda mengunggah ke repositori baru, pastikan URL kloning ini benar.
 
-2.  **Instal dependensi (jika ada):**
-    * Jika ini adalah proyek frontend murni atau menggunakan server lokal sederhana (misalnya Python `http.server`), mungkin tidak ada langkah instalasi dependensi yang kompleks.
-    * Jika ada backend (misal Python, Node.js):
+3.  **Instal dependensi Composer:**
+    ```bash
+    composer install
+    ```
+
+4.  **Konfigurasi Environment:**
+    * Buat file `.env` dengan menyalin `.env.example`:
         ```bash
-        # Contoh untuk Python
-        pip install -r requirements.txt
-        # Contoh untuk Node.js
-        npm install
+        cp .env.example .env
+        ```
+    * Edit file `.env` dan konfigurasikan detail database Anda (DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD).
+    * Generate kunci aplikasi Laravel:
+        ```bash
+        php artisan key:generate
         ```
 
-3.  **Jalankan aplikasi:**
-    * Karena Anda melihatnya di `127.0.0.1:8000`, kemungkinan besar Anda menjalankannya melalui server pengembangan lokal.
-    * **Untuk proyek statis/sederhana (tanpa backend kompleks):**
+5.  **Migrasi Database dan Seed Data (jika ada):**
+    ```bash
+    php artisan migrate
+    # Jika Anda memiliki seeder untuk data awal
+    # php artisan db:seed
+    ```
+
+6.  **Instal dependensi Node.js dan Kompilasi Aset Frontend (jika menggunakan Vite/Webpack):**
+    ```bash
+    npm install
+    npm run dev  # Untuk pengembangan
+    # npm run build # Untuk produksi
+    ```
+
+7.  **Jalankan aplikasi:**
+    * Mulai server pengembangan Laravel:
         ```bash
-        # Menggunakan Python sebagai server HTTP sederhana
-        python -m http.server 8000
-        # Atau jika Anda menggunakan server lain, sesuaikan perintahnya
+        php artisan serve --port=8000
         ```
-    * **Jika ada backend spesifik (misal Flask/Node.js):**
-        ```bash
-        # Contoh untuk Flask
-        flask run --port 8000
-        # Contoh untuk Node.js
-        npm start
-        ```
+    * *(Opsional)* Jika Anda menggunakan server web seperti Apache/Nginx, konfigurasikan Virtual Host untuk menunjuk ke direktori `public` proyek.
 
-4.  **Akses aplikasi:**
-    Buka browser web Anda dan navigasikan ke `http://127.0.0.1:8000`.
-
----
-
-## 📂 **Struktur Proyek**
-WestMacEnergy/
-├── css/                    # File CSS untuk styling
-│   └── style.css
-├── js/                     # File JavaScript untuk fungsionalitas
-│   └── script.js
-├── img/                    # Folder untuk gambar (misal thumbnail untuk tabel)
-├── data/                   # File data geospasial (misal GeoJSON)
-│   └── (nama_file_data.geojson)
-├── index.html              # Halaman Beranda
-├── map.html                # Halaman Peta Interaktif
-├── table.html              # Halaman Data Explorer (Tabel)
-├── README.md               # File ini
-├── (file-file proyek lainnya)
-└── (folder-folder aset lain jika ada)
-
----
-
-## 🤝 **Kontribusi**
-
-Kami menyambut kontribusi! Jika Anda ingin berkontribusi pada proyek ini, silakan ikuti langkah-langkah berikut:
-
-1.  Fork repositori ini.
-2.  Buat branch baru untuk fitur Anda (`git checkout -b feature/nama-fitur-baru`).
-3.  Lakukan perubahan Anda.
-4.  Commit perubahan Anda (`git commit -m 'Tambahkan fitur baru X'`).
-5.  Push ke branch Anda (`git push origin feature/nama-fitur-baru`).
-6.  Buka Pull Request.
-
----
-
-## ⚖️ **Lisensi**
-
-Proyek ini dilisensikan di bawah (Nama Lisensi, misalnya MIT License). Lihat file [LICENSE](LICENSE) untuk detail lebih lanjut.
-(Jika Anda tidak memiliki file `LICENSE`, Anda bisa menghapus bagian ini atau menambahkan lisensi yang sesuai.)
+8.  **Akses aplikasi:**
+    Buka browser web Anda dan navigasikan ke `http://127.0.0.1:8000` (jika menggunakan `php artisan serve`) atau domain yang Anda konfigurasi di server web Anda.
 
 ---
 
